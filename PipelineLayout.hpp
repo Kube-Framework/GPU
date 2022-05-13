@@ -18,16 +18,16 @@ class kF::GPU::PipelineLayout : public Handle<PipelineLayoutHandle>
 {
 public:
     /** @brief Initializer list constructor */
-    [[nodisard]] static inline PipelineLayout Make(const std::initializer_list<DescriptorSetLayoutHandle> &setLayouts,
+    [[nodiscard]] static inline PipelineLayout Make(const std::initializer_list<DescriptorSetLayoutHandle> &setLayouts,
             const std::initializer_list<PushConstantRange> &pushConstants) noexcept
         { return PipelineLayout(PipelineLayoutModel(setLayouts.begin(), setLayouts.end(), pushConstants.begin(), pushConstants.end())); }
 
     /** @brief Initializer list constructor (DescriptorSetLayoutHandle only) */
-    [[nodisard]] static inline PipelineLayout Make(const std::initializer_list<DescriptorSetLayoutHandle> &setLayouts) noexcept
+    [[nodiscard]] static inline PipelineLayout Make(const std::initializer_list<DescriptorSetLayoutHandle> &setLayouts) noexcept
         { return PipelineLayout(PipelineLayoutModel(setLayouts.begin(), setLayouts.end(), nullptr, nullptr)); }
 
     /** @brief Initializer list constructor (PushConstantRange only) */
-    [[nodisard]] static inline PipelineLayout Make(const std::initializer_list<PushConstantRange> &pushConstants) noexcept
+    [[nodiscard]] static inline PipelineLayout Make(const std::initializer_list<PushConstantRange> &pushConstants) noexcept
         { return PipelineLayout(PipelineLayoutModel(nullptr, nullptr, pushConstants.begin(), pushConstants.end())); }
 
 
