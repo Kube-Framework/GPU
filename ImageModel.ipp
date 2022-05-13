@@ -31,7 +31,7 @@ inline kF::GPU::ImageModel kF::GPU::ImageModel::MakeDepthStencil(const Extent2D 
     return MakeSingleLayer2D(
         extent,
         format,
-        Core::Utils::MakeFlags(ImageUsageFlags::DepthStencilAttachment, customFlags),
+        Core::MakeFlags(ImageUsageFlags::DepthStencilAttachment, customFlags),
         ImageTiling::TilingOptimal
     );
 }

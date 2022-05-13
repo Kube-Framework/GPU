@@ -16,7 +16,7 @@ bool GPU::Fence::Wait(const FenceHandle * const begin, const FenceHandle * const
     if (const auto res = ::vkWaitForFences(Parent().logicalDevice(), static_cast<std::uint32_t>(std::distance(begin, end)), begin, waitAll, timeout); res == VK_TIMEOUT)
         return false;
     else if (res != VK_SUCCESS)
-        kFAbort("GPU::Fence::Wait: Error on waiting fence(s) '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Fence::Wait: Error on waiting fence(s) '", ErrorMessage(res), '\'');
     return true;
 }
 
@@ -42,7 +42,7 @@ GPU::Fence::Fence(const bool signaled) noexcept
     };
 
     if (const auto res = ::vkCreateFence(parent().logicalDevice(), &fenceInfo, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Fence: Couldn't create fence '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Fence: Couldn't create fence '", ErrorMessage(res), '\'');
 }
 
 bool GPU::Fence::isSignaled(void) const noexcept

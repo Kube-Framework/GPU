@@ -27,7 +27,7 @@ void GPU::CommandDispatcher::dispatch(const QueueType queueType,
         fence
     );
     if (res != VK_SUCCESS)
-        kFAbort("GPU::CommandDispatcher::dispatch: Couldn't submit to queue '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::CommandDispatcher::dispatch: Couldn't submit to queue '", ErrorMessage(res), '\'');
 }
 
 bool GPU::CommandDispatcher::tryAcquireNextFrame(void) noexcept
@@ -57,7 +57,7 @@ bool GPU::CommandDispatcher::tryAcquireNextFrame(void) noexcept
         if (res == VK_NOT_READY | res == VK_TIMEOUT | res == VK_ERROR_OUT_OF_DATE_KHR | res == VK_SUBOPTIMAL_KHR)
             return false;
         else
-            kFAbort("GPU::CommandDispatcher::tryAcquireNextFrame: Couldn't acquire next image '", Utils::ErrorMessage(res), '\'');
+            kFAbort("GPU::CommandDispatcher::tryAcquireNextFrame: Couldn't acquire next image '", ErrorMessage(res), '\'');
     }
 
     // Update the new current frame
@@ -113,7 +113,7 @@ void GPU::CommandDispatcher::presentFrame(void) noexcept
     };
     const auto res = ::vkQueuePresentKHR(parent().queueManager().queue(QueueType::Present), &presentInfo);
     if (res != VK_SUCCESS && res != VK_ERROR_OUT_OF_DATE_KHR && res != VK_SUBOPTIMAL_KHR)
-        kFAbort("GPU::CommandDispatcher::presentFrame: Couldn't setup present queue '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::CommandDispatcher::presentFrame: Couldn't setup present queue '", ErrorMessage(res), '\'');
 
     // Collect every fence in use for the current frame
     const auto fenceCount = static_cast<std::uint32_t>(UnrollAccumulate(cache.perQueueFenceCache.data(), PerQueueIndexSequence));

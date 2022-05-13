@@ -31,5 +31,5 @@ GPU::Shader::Shader(const BinaryCode &binary, const std::string_view &path) noex
     };
 
     if (const auto res = ::vkCreateShaderModule(parent().logicalDevice(), &shaderModuleInfo, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Shader: Couldn't create shader module '", Utils::ErrorMessage(res), "' at path '", path, '\'');
+        kFAbort("GPU::Shader: Couldn't create shader module '", ErrorMessage(res), "' at path '", path, '\'');
 }

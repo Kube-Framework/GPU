@@ -19,5 +19,5 @@ GPU::Image::~Image(void) noexcept
 GPU::Image::Image(const ImageModel &model) noexcept
 {
     if (const auto res = ::vkCreateImage(parent().logicalDevice(), &model, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Image: Couldn't create image '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Image: Couldn't create image '", ErrorMessage(res), '\'');
 }

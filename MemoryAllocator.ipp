@@ -18,7 +18,7 @@ inline Type *kF::GPU::MemoryAllocator::beginMemoryMap(const MemoryAllocationHand
 {
     void *target { nullptr };
     if (const auto res = ::vmaMapMemory(handle(), allocation, &target); res != VK_SUCCESS)
-        kFAbort("GPU::MemoryAllocator::beginMemoryMap: Couldn't map allocation memory '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::MemoryAllocator::beginMemoryMap: Couldn't map allocation memory '", ErrorMessage(res), '\'');
     return reinterpret_cast<Type *>(target);
 }
 

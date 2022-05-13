@@ -25,7 +25,7 @@ GPU::Semaphore::Semaphore(void) noexcept
     };
 
     if (const auto res = ::vkCreateSemaphore(parent().logicalDevice(), &semaphoreInfo, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Semaphore: Couldn't create semaphore '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Semaphore: Couldn't create semaphore '", ErrorMessage(res), '\'');
 }
 
 GPU::TimelineSemaphore::~TimelineSemaphore(void) noexcept
@@ -49,5 +49,5 @@ GPU::TimelineSemaphore::TimelineSemaphore(const std::uint64_t initialValue) noex
     };
 
     if (const auto res = ::vkCreateSemaphore(parent().logicalDevice(), &semaphoreInfo, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::TimelineSemaphore: Couldn't create timeline semaphore '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::TimelineSemaphore: Couldn't create timeline semaphore '", ErrorMessage(res), '\'');
 }

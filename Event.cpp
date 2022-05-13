@@ -25,13 +25,13 @@ GPU::Event::Event(void) noexcept
     };
 
     if (const auto res = ::vkCreateEvent(parent().logicalDevice(), &eventCreateInfo, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Event: Couldn't create event '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Event: Couldn't create event '", ErrorMessage(res), '\'');
 }
 
 void GPU::Event::signal(void) noexcept
 {
     if (const auto res = ::vkSetEvent(parent().logicalDevice(), handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Event::set: Couldn't set event status '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Event::set: Couldn't set event status '", ErrorMessage(res), '\'');
 }
 
 bool GPU::Event::isSignaled(void) const noexcept
@@ -43,11 +43,11 @@ bool GPU::Event::isSignaled(void) const noexcept
     else if (res == VK_EVENT_RESET)
         return false;
     else
-        kFAbort("GPU::Event::isSignaled: Couldn't get event status '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Event::isSignaled: Couldn't get event status '", ErrorMessage(res), '\'');
 }
 
 void GPU::Event::reset(void) noexcept
 {
     if (const auto res = ::vkResetEvent(parent().logicalDevice(), handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Event::reset: Couldn't reset event '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Event::reset: Couldn't reset event '", ErrorMessage(res), '\'');
 }

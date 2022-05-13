@@ -19,5 +19,5 @@ GPU::RenderPass::~RenderPass(void) noexcept
 GPU::RenderPass::RenderPass(const RenderPassModel &model) noexcept
 {
     if (const auto res = ::vkCreateRenderPass(parent().logicalDevice(), &model, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::RenderPass: Couldn't create render pass '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::RenderPass: Couldn't create render pass '", ErrorMessage(res), '\'');
 }

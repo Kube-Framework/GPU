@@ -26,12 +26,12 @@ inline void kF::GPU::CommandPool::recordImpl(const CommandHandle command, const 
 
     // Begin command buffer
     if (const auto res = ::vkBeginCommandBuffer(command, &commandBeginInfo); res != VK_SUCCESS)
-        kFAbort("GPU::CommandPool::add: Couldn't begin command buffer '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::CommandPool::add: Couldn't begin command buffer '", ErrorMessage(res), '\'');
 
     // Record command buffer
     recorder(command);
 
     // End command buffer
     if (const auto res = ::vkEndCommandBuffer(command); res != VK_SUCCESS)
-        kFAbort("GPU::CommandPool::add: Couldn't end command buffer '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::CommandPool::add: Couldn't end command buffer '", ErrorMessage(res), '\'');
 }

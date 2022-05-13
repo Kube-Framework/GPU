@@ -19,5 +19,5 @@ GPU::Buffer::~Buffer(void) noexcept
 GPU::Buffer::Buffer(const BufferModel &model) noexcept
 {
     if (const auto res = ::vkCreateBuffer(parent().logicalDevice(), &model, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Buffer: Couldn't create buffer '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Buffer: Couldn't create buffer '", ErrorMessage(res), '\'');
 }

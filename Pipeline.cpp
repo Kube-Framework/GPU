@@ -17,11 +17,11 @@ GPU::Pipeline::~Pipeline(void) noexcept
 GPU::Pipeline::Pipeline(const GraphicPipelineModel &model) noexcept
 {
     if (const auto res = ::vkCreateGraphicsPipelines(parent().logicalDevice(), VkPipelineCache(), 1u, &model, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Pipeline: Couldn't create graphic pipeline '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Pipeline: Couldn't create graphic pipeline '", ErrorMessage(res), '\'');
 }
 
 GPU::Pipeline::Pipeline(const ComputePipelineModel &model) noexcept
 {
     if (const auto res = ::vkCreateComputePipelines(parent().logicalDevice(), VkPipelineCache(), 1u, &model, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Pipeline: Couldn't create compute pipeline '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Pipeline: Couldn't create compute pipeline '", ErrorMessage(res), '\'');
 }

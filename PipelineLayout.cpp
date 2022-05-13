@@ -19,5 +19,5 @@ GPU::PipelineLayout::~PipelineLayout(void) noexcept
 GPU::PipelineLayout::PipelineLayout(const PipelineLayoutModel &model) noexcept
 {
     if (const auto res = ::vkCreatePipelineLayout(parent().logicalDevice(), &model, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::PipelineLayout: Couldn't create pipeline layout '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::PipelineLayout: Couldn't create pipeline layout '", ErrorMessage(res), '\'');
 }

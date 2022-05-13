@@ -55,7 +55,7 @@ void GPU::Swapchain::createSwapchain(const SwapchainHandle oldSwapchain) noexcep
     };
 
     if (const auto res = ::vkCreateSwapchainKHR(parent().logicalDevice(), &swapchainInfo, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Swapchain::createSwapchain: Couldn't create swapchain '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Swapchain::createSwapchain: Couldn't create swapchain '", ErrorMessage(res), '\'');
     if (oldSwapchain != NullHandle)
         ::vkDestroySwapchainKHR(parent().logicalDevice(), oldSwapchain, nullptr);
     _extent = extent;
@@ -63,7 +63,7 @@ void GPU::Swapchain::createSwapchain(const SwapchainHandle oldSwapchain) noexcep
     _presentMode = presentMode;
 #if KUBE_DEBUG_BUILD
     kFInfo("Swapchain creation:");
-    kFInfo("\tPresentMode: ", Utils::PresentModeName(_presentMode));
+    kFInfo("\tPresentMode: ", PresentModeName(_presentMode));
     kFInfo("\tExtent2D: ", _extent.width, ", ", _extent.height);
 #endif
 }
@@ -72,8 +72,8 @@ GPU::Swapchain::SwapchainImages GPU::Swapchain::queryImages(void) const noexcept
 {
     SwapchainImages images;
 
-    if (const auto res = Utils::FillVkContainer(images, &::vkGetSwapchainImagesKHR, parent().logicalDevice(), handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Swapchain::queryImages: Couldn't retreive swapchain images '", Utils::ErrorMessage(res), '\'');
+    if (const auto res = Internal::FillVkContainer(images, &::vkGetSwapchainImagesKHR, parent().logicalDevice(), handle()); res != VK_SUCCESS)
+        kFAbort("GPU::Swapchain::queryImages: Couldn't retreive swapchain images '", ErrorMessage(res), '\'');
     return images;
 }
 

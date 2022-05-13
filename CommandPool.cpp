@@ -26,7 +26,7 @@ GPU::CommandPool::CommandPool(const QueueType queueType, const CommandPoolCreate
     };
 
     if (const auto res = ::vkCreateCommandPool(parent().logicalDevice(), &commandPoolInfo, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::CommandPool: Couldn't create command pool '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::CommandPool: Couldn't create command pool '", ErrorMessage(res), '\'');
 }
 
 void GPU::CommandPool::add(const CommandLevel level, CommandHandle * const commandFrom, CommandHandle * const commandTo) noexcept
@@ -40,7 +40,7 @@ void GPU::CommandPool::add(const CommandLevel level, CommandHandle * const comma
     };
 
     if (const auto res = ::vkAllocateCommandBuffers(parent().logicalDevice(), &commandInfo, commandFrom); res != VK_SUCCESS)
-        kFAbort("GPU::CommandPool::allocateCommands: Couldn't allocate command buffers '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::CommandPool::allocateCommands: Couldn't allocate command buffers '", ErrorMessage(res), '\'');
 }
 
 void GPU::CommandPool::remove(const CommandHandle * const commandBegin, const CommandHandle * const commandEnd) noexcept

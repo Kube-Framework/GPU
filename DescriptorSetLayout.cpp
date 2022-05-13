@@ -31,5 +31,5 @@ GPU::DescriptorSetLayout::~DescriptorSetLayout(void) noexcept
 GPU::DescriptorSetLayout::DescriptorSetLayout(const DescriptorSetLayoutModel &model) noexcept
 {
     if (const auto res = ::vkCreateDescriptorSetLayout(parent().logicalDevice(), &model, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::DescriptorSetLayout: Couldn't create descriptor set layout '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::DescriptorSetLayout: Couldn't create descriptor set layout '", ErrorMessage(res), '\'');
 }

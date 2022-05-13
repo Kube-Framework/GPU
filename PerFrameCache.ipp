@@ -5,21 +5,21 @@
 
 #include "PerFrameCache.hpp"
 
-template<typename Type, kF::Core::Utils::StaticAllocator Allocator>
+template<typename Type, kF::Core::StaticAllocatorRequirements Allocator>
 inline void kF::GPU::PerFrameCache<Type, Allocator>::resize(const FrameIndex count) noexcept
 {
     reserve(count);
     std::uninitialized_default_construct_n(_data, count);
 }
 
-template<typename Type, kF::Core::Utils::StaticAllocator Allocator>
+template<typename Type, kF::Core::StaticAllocatorRequirements Allocator>
 inline void kF::GPU::PerFrameCache<Type, Allocator>::resize(const FrameIndex count, const Type &value) noexcept
 {
     reserve(count);
     std::uninitialized_fill_n(_data, count, value);
 }
 
-template<typename Type, kF::Core::Utils::StaticAllocator Allocator>
+template<typename Type, kF::Core::StaticAllocatorRequirements Allocator>
 template<typename Initializer>
     requires std::is_invocable_r_v<Type, Initializer> || std::is_invocable_r_v<Type, Initializer, kF::GPU::FrameIndex>
 inline void kF::GPU::PerFrameCache<Type, Allocator>::resize(const FrameIndex count, Initializer &&initializer) noexcept
@@ -33,13 +33,13 @@ inline void kF::GPU::PerFrameCache<Type, Allocator>::resize(const FrameIndex cou
     }
 }
 
-template<typename Type, kF::Core::Utils::StaticAllocator Allocator>
+template<typename Type, kF::Core::StaticAllocatorRequirements Allocator>
 template<bool ResetMembers>
 inline void kF::GPU::PerFrameCache<Type, Allocator>::release(void) noexcept
 {
     if (_data) {
         std::destroy_n(_data, _capacity);
-        Core::Utils::AlignedFree(_data, _capacity * sizeof(Type), alignof(Type));
+        Core::AlignedFree(_data, _capacity * sizeof(Type), alignof(Type));
         if constexpr (ResetMembers) {
             _data = nullptr;
             _capacity = 0;
@@ -48,11 +48,11 @@ inline void kF::GPU::PerFrameCache<Type, Allocator>::release(void) noexcept
     }
 }
 
-template<typename Type, kF::Core::Utils::StaticAllocator Allocator>
+template<typename Type, kF::Core::StaticAllocatorRequirements Allocator>
 inline void kF::GPU::PerFrameCache<Type, Allocator>::reserve(const FrameIndex count) noexcept
 {
     release();
-    _data = Core::Utils::AlignedAlloc<Type>(count * sizeof(Type), alignof(Type));
+    _data = Core::AlignedAlloc<Type>(count * sizeof(Type), alignof(Type));
     _capacity = count;
     _index = 0;
 }

@@ -35,8 +35,8 @@ GPU::PhysicalDevice::Devices GPU::PhysicalDevice::getDevices(void) const noexcep
 {
     Devices devices;
 
-    if (const auto res = Utils::FillVkContainer(devices, &::vkEnumeratePhysicalDevices, parent().instance()); res != VK_SUCCESS)
-        kFAbort("GPU::PhysicalDevice::PhysicalDevice: Couldn't enumerate physical devices '", Utils::ErrorMessage(res), '\'');
+    if (const auto res = Internal::FillVkContainer(devices, &::vkEnumeratePhysicalDevices, parent().instance()); res != VK_SUCCESS)
+        kFAbort("GPU::PhysicalDevice::PhysicalDevice: Couldn't enumerate physical devices '", ErrorMessage(res), '\'');
     return devices;
 }
 
@@ -63,6 +63,6 @@ GPU::Format GPU::PhysicalDevice::findSupportedFormat(const ImageTiling tiling, c
     }
     kFErrorRaw("GPU::PhysicalDevice::findSupportedFormat: Couldn't find any supported format from candidate list { ");
     for (auto it = candidateBegin; it != candidateEnd; ++it)
-        kFErrorRaw(Utils::FormatName(*it), ", ");
+        kFErrorRaw(FormatName(*it), ", ");
     kFAbort('}');
 }

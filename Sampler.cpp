@@ -19,5 +19,5 @@ GPU::Sampler::~Sampler(void) noexcept
 GPU::Sampler::Sampler(const SamplerModel &model) noexcept
 {
     if (const auto res = ::vkCreateSampler(parent().logicalDevice(), &model, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Sampler: Couldn't create sampler '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Sampler: Couldn't create sampler '", ErrorMessage(res), '\'');
 }

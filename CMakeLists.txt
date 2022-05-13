@@ -7,6 +7,7 @@ kube_add_library(GPU
         AttachmentReference.hpp
         Base.cpp
         Base.hpp
+        Base.ipp
         Buffer.cpp
         Buffer.hpp
         BufferCopy.hpp

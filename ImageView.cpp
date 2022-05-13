@@ -19,5 +19,5 @@ GPU::ImageView::~ImageView(void) noexcept
 GPU::ImageView::ImageView(const ImageViewModel &model) noexcept
 {
     if (const auto res = ::vkCreateImageView(parent().logicalDevice(), &model, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::ImageView: Couldn't create image view '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::ImageView: Couldn't create image view '", ErrorMessage(res), '\'');
 }

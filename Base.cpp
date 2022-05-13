@@ -7,7 +7,7 @@
 
 using namespace kF;
 
-std::string_view GPU::Utils::ErrorMessage(const VkResult res) noexcept
+std::string_view GPU::ErrorMessage(const VkResult res) noexcept
 {
     switch (res)
     {
@@ -62,7 +62,7 @@ std::string_view GPU::Utils::ErrorMessage(const VkResult res) noexcept
     }
 }
 
-std::string_view kF::GPU::Utils::QueueTypeName(const QueueType type) noexcept
+std::string_view kF::GPU::QueueTypeName(const QueueType type) noexcept
 {
     switch (type) {
     case QueueType::Graphics:
@@ -78,7 +78,7 @@ std::string_view kF::GPU::Utils::QueueTypeName(const QueueType type) noexcept
     }
 }
 
-std::string_view GPU::Utils::PresentModeName(const PresentMode type) noexcept
+std::string_view GPU::PresentModeName(const PresentMode type) noexcept
 {
     switch (type) {
     case PresentMode::ImmediateKhr:
@@ -94,7 +94,7 @@ std::string_view GPU::Utils::PresentModeName(const PresentMode type) noexcept
     }
 }
 
-std::string_view GPU::Utils::FormatName(const Format type) noexcept
+std::string_view GPU::FormatName(const Format type) noexcept
 {
     switch (type) {
     case Format::Undefined:

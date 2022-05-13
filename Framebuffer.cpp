@@ -19,5 +19,5 @@ GPU::Framebuffer::~Framebuffer(void) noexcept
 GPU::Framebuffer::Framebuffer(const FramebufferModel &model) noexcept
 {
     if (const auto res = ::vkCreateFramebuffer(parent().logicalDevice(), &model, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Framebuffer: Couldn't create framebuffer '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Framebuffer: Couldn't create framebuffer '", ErrorMessage(res), '\'');
 }

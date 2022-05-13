@@ -35,7 +35,7 @@ GPU::MemoryAllocator::MemoryAllocator(void) noexcept
     };
 
     if (const auto res = ::vmaCreateAllocator(&allocatorCreateInfo, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::MemoryAllocator: Couldn't create allocator '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::MemoryAllocator: Couldn't create allocator '", ErrorMessage(res), '\'');
 }
 
 void GPU::MemoryAllocator::allocate(const MemoryAllocationModel * const modelFrom, const MemoryAllocationModel * const modelTo,
@@ -64,10 +64,10 @@ void GPU::MemoryAllocator::allocate(const MemoryAllocationModel * const modelFro
                 nullptr
             );
             kFEnsure(res == VK_SUCCESS,
-                "GPU::MemoryAllocator::allocate: Couldn't allocate memory for buffer '", Utils::ErrorMessage(res), '\'');
+                "GPU::MemoryAllocator::allocate: Couldn't allocate memory for buffer '", ErrorMessage(res), '\'');
             res = ::vmaBindBufferMemory(handle(), *allocationIt, modelIt->buffer());
             kFEnsure(res == VK_SUCCESS,
-                "GPU::MemoryAllocator::allocate: Couldn't bind memory to buffer '", Utils::ErrorMessage(res), '\'');
+                "GPU::MemoryAllocator::allocate: Couldn't bind memory to buffer '", ErrorMessage(res), '\'');
         } else {
             auto res = ::vmaAllocateMemoryForImage(
                 handle(),
@@ -77,10 +77,10 @@ void GPU::MemoryAllocator::allocate(const MemoryAllocationModel * const modelFro
                 nullptr
             );
             kFEnsure(res == VK_SUCCESS,
-                "GPU::MemoryAllocator::allocate: Couldn't allocate memory for image '", Utils::ErrorMessage(res), '\'');
+                "GPU::MemoryAllocator::allocate: Couldn't allocate memory for image '", ErrorMessage(res), '\'');
             res = ::vmaBindImageMemory(handle(), *allocationIt, modelIt->image());
             kFEnsure(res == VK_SUCCESS,
-                "GPU::MemoryAllocator::allocate: Couldn't bind memory to image '", Utils::ErrorMessage(res), '\'');
+                "GPU::MemoryAllocator::allocate: Couldn't bind memory to image '", ErrorMessage(res), '\'');
         }
     }
 }

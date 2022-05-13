@@ -19,7 +19,7 @@ class kF::GPU::Shader : public Handle<VkShaderModule>
 {
 public:
     /** @brief A vector containing binary data */
-    using BinaryCode = Core::Utils::IteratorRange<const std::uint8_t *>;
+    using BinaryCode = Core::IteratorRange<const std::uint8_t *>;
 
 
     /** @brief Construct a shader from binary code and an optional path */

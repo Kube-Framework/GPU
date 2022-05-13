@@ -29,8 +29,8 @@ GPU::SurfaceFormat GPU::Surface::getSurfaceFormat(void) const noexcept
 {
     Core::TinyVector<SurfaceFormat> formats;
 
-    if (const auto res = Utils::FillVkContainer(formats, &::vkGetPhysicalDeviceSurfaceFormatsKHR, parent().physicalDevice(), handle()); res != VK_SUCCESS || formats.empty())
-        kFAbort("GPU::Surface::surfaceFormat: Couldn't retreive physical device surface format '", Utils::ErrorMessage(res), '\'');
+    if (const auto res = Internal::FillVkContainer(formats, &::vkGetPhysicalDeviceSurfaceFormatsKHR, parent().physicalDevice(), handle()); res != VK_SUCCESS || formats.empty())
+        kFAbort("GPU::Surface::surfaceFormat: Couldn't retreive physical device surface format '", ErrorMessage(res), '\'');
     for (const auto &format : formats) {
         if (format.format != VK_FORMAT_B8G8R8A8_UNORM || format.colorSpace != VK_COLOR_SPACE_SRGB_NONLINEAR_KHR)
             continue;
@@ -44,7 +44,7 @@ GPU::PresentMode GPU::Surface::getPresentMode(void) const noexcept
 {
     Core::TinyVector<VkPresentModeKHR> modes;
 
-    if (const auto res = Utils::FillVkContainer(modes, &::vkGetPhysicalDeviceSurfacePresentModesKHR, parent().physicalDevice(), handle()); res != VK_SUCCESS)
+    if (const auto res = Internal::FillVkContainer(modes, &::vkGetPhysicalDeviceSurfacePresentModesKHR, parent().physicalDevice(), handle()); res != VK_SUCCESS)
         kFAbort("GPU::Surface::getPresentMode: Couldn't retreive physical device present modes");
     for (const auto &mode : modes) {
         if (static_cast<PresentMode>(mode) == PresentMode::MailboxKhr)
@@ -59,7 +59,7 @@ GPU::SurfaceCapabilities GPU::Surface::getSurfaceCapabilities(void) const noexce
     SurfaceCapabilities capabilities {};
 
     if (const auto res = ::vkGetPhysicalDeviceSurfaceCapabilitiesKHR(parent().physicalDevice(), handle(), &capabilities); res != VK_SUCCESS)
-        kFAbort("GPU::Surface::surfaceCapabilities: Couldn't retreive physical device surface capabilities '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Surface::surfaceCapabilities: Couldn't retreive physical device surface capabilities '", ErrorMessage(res), '\'');
     return capabilities;
 }
 

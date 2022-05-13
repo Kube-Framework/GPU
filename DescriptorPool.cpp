@@ -20,7 +20,7 @@ GPU::DescriptorPool::~DescriptorPool(void) noexcept
 GPU::DescriptorPool::DescriptorPool(const DescriptorPoolModel &model) noexcept
 {
     if (const auto res = ::vkCreateDescriptorPool(parent().logicalDevice(), &model, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::DescriptorPool: Couldn't create descriptor pool '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::DescriptorPool: Couldn't create descriptor pool '", ErrorMessage(res), '\'');
 }
 
 GPU::DescriptorSetHandle GPU::DescriptorPool::allocate(const DescriptorSetLayoutHandle &layout) noexcept
@@ -35,7 +35,7 @@ GPU::DescriptorSetHandle GPU::DescriptorPool::allocate(const DescriptorSetLayout
 
     DescriptorSetHandle descriptorSet;
     if (const auto res = ::vkAllocateDescriptorSets(parent().logicalDevice(), &allocInfo, &descriptorSet); res != VK_SUCCESS)
-        kFAbort("GPU::DescriptorPool::allocate: Couldn't allocate descriptor set '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::DescriptorPool::allocate: Couldn't allocate descriptor set '", ErrorMessage(res), '\'');
     return descriptorSet;
 }
 
@@ -55,7 +55,7 @@ void GPU::DescriptorPool::allocate(
     };
 
     if (const auto res = ::vkAllocateDescriptorSets(parent().logicalDevice(), &allocInfo, descriptorSetBegin); res != VK_SUCCESS)
-        kFAbort("GPU::DescriptorPool::allocate: Couldn't allocate descriptor sets '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::DescriptorPool::allocate: Couldn't allocate descriptor sets '", ErrorMessage(res), '\'');
 }
 
 void GPU::DescriptorPool::deallocate(const DescriptorSetHandle * const begin, const DescriptorSetHandle * const end) noexcept

@@ -46,7 +46,7 @@ GPU::Instance::Instance(const Core::Version applicationVersion) noexcept
     };
 
     if (const auto res = ::vkCreateInstance(&instanceInfo, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Instance:: Couldn't create instance '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Instance:: Couldn't create instance '", ErrorMessage(res), '\'');
 #if KUBE_DEBUG_BUILD
     kFInfo("Extensions:");
     for (auto &extension : extensions)
@@ -65,12 +65,12 @@ GPU::Instance::Layers GPU::Instance::getLayers(void) const noexcept
     Core::TinyVector<VkLayerProperties> avaible;
 
     if (const auto res = ::vkEnumerateInstanceLayerProperties(&count, nullptr); res != VK_SUCCESS)
-        kFAbort("GPU::Instance::getLayers: Couldn't enumerate instances layers properties", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Instance::getLayers: Couldn't enumerate instances layers properties", ErrorMessage(res), '\'');
     if (!count)
         return layers;
     avaible.resize(count + layers.size());
     if (const auto res = ::vkEnumerateInstanceLayerProperties(&count, avaible.data()); res != VK_SUCCESS)
-        kFAbort("GPU::Instance::getLayers: Couldn't enumerate instances layers properties", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::Instance::getLayers: Couldn't enumerate instances layers properties", ErrorMessage(res), '\'');
     for (auto it = layers.begin(); it != layers.end();) {
         bool found = false;
         for (const auto &layerProperties : avaible) {

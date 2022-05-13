@@ -54,7 +54,7 @@ GPU::LogicalDevice::LogicalDevice(void) noexcept
 
     // Create device
     if (const auto res = ::vkCreateDevice(parent().physicalDevice(), &deviceInfo, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::LogicalDevice:: Couldn't create logical device '", Utils::ErrorMessage(res), '\'');
+        kFAbort("GPU::LogicalDevice:: Couldn't create logical device '", ErrorMessage(res), '\'');
     // Update queue handles
     parent().queueManager().retreiveQueuesHandlers();
 #if KUBE_DEBUG_BUILD
@@ -105,8 +105,8 @@ GPU::LogicalDevice::Extensions GPU::LogicalDevice::getExtensions(void) const noe
     const Extensions extensions { VK_KHR_SWAPCHAIN_EXTENSION_NAME, VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME };
     Core::TinyVector<VkExtensionProperties> properties;
 
-    if (const auto res = Utils::FillVkContainer(properties, &::vkEnumerateDeviceExtensionProperties, parent().physicalDevice(), nullptr); res != VK_SUCCESS)
-        kFAbort("GPU::LogicalDevice::getExtensions: Couldn't enumerate logical device extensions '", Utils::ErrorMessage(res), '\'');
+    if (const auto res = Internal::FillVkContainer(properties, &::vkEnumerateDeviceExtensionProperties, parent().physicalDevice(), nullptr); res != VK_SUCCESS)
+        kFAbort("GPU::LogicalDevice::getExtensions: Couldn't enumerate logical device extensions '", ErrorMessage(res), '\'');
     for (const auto &extension : extensions) {
         auto found = false;
         for (const auto &property : properties) {

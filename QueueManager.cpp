@@ -28,7 +28,7 @@ GPU::QueueManager::QueueCreateInfos GPU::QueueManager::registerQueues(void) noex
         QueueDescriptor descriptor;
         bool queueFound = true;
         if (_candidatesMap[type].empty()) [[unlikely]]
-            kFAbort("GPU::QueueManager::registerQueues: Couldn't register unsupported queue type '", Utils::QueueTypeName(static_cast<QueueType>(type)));
+            kFAbort("GPU::QueueManager::registerQueues: Couldn't register unsupported queue type '", QueueTypeName(static_cast<QueueType>(type)));
         for (const auto &candidate : _candidatesMap[type]) {
             queueFound = true;
             descriptor.queueFamilyIndex = candidate.queueFamilyIndex;
@@ -56,7 +56,7 @@ GPU::QueueManager::QueueCreateInfos GPU::QueueManager::registerQueues(void) noex
         // Ensure we found a unique candidate
         if (!queueFound) [[unlikely]]
             kFInfo("GPU::QueueManager::registerQueues: Queue conflict '",
-                    Utils::QueueTypeName(static_cast<QueueType>(type)), "', with family ",
+                    QueueTypeName(static_cast<QueueType>(type)), "', with family ",
                     descriptor.queueFamilyIndex, " and index ", descriptor.queueIndex);
         // Ensure the queue family is not in create info list
         bool isInserted = false;
@@ -103,7 +103,7 @@ void GPU::QueueManager::retreiveQueuesHandlers(void) noexcept
 #if KUBE_DEBUG_BUILD
     kFInfo("Queues:");
     for (std::size_t type = 0ul; type < static_cast<std::size_t>(QueueType::Count); ++type) {
-        kFInfo('\t', Utils::QueueTypeName(static_cast<QueueType>(type)));
+        kFInfo('\t', QueueTypeName(static_cast<QueueType>(type)));
         if (!_candidatesMap[type].empty()) {
             for (const auto &candidate : _candidatesMap[type]) {
                 if (candidate.queueFamilyIndex == _array[type].queueFamilyIndex) {
@@ -123,22 +123,22 @@ void GPU::QueueManager::retreiveFamilyQueueIndexes(void) noexcept
     std::uint32_t queueFamilyIndex = 0;
     VkBool32 isPresent = false;
 
-    Utils::FillVkContainer(properties, &::vkGetPhysicalDeviceQueueFamilyProperties, parent().physicalDevice());
+    Internal::FillVkContainer(properties, &::vkGetPhysicalDeviceQueueFamilyProperties, parent().physicalDevice());
     for (auto &property : properties) {
         if (const auto res = ::vkGetPhysicalDeviceSurfaceSupportKHR(parent().physicalDevice(), queueFamilyIndex, parent().surface(), &isPresent); res != VK_SUCCESS)
-            kFAbort("GPU::QueueManager::registerQueues: Couldn't get physical device surface support '", Utils::ErrorMessage(res), '\'');
+            kFAbort("GPU::QueueManager::registerQueues: Couldn't get physical device surface support '", ErrorMessage(res), '\'');
         const QueueCandidate candidate {
             .queueFamilyIndex = queueFamilyIndex,
             .queueCount = property.queueCount
         };
         if (isPresent)
-            _candidatesMap[Core::Utils::ToUnderlying(QueueType::Present)].push(candidate);
+            _candidatesMap[Core::ToUnderlying(QueueType::Present)].push(candidate);
         if (property.queueFlags & ToFlags(QueueFlags::Graphics))
-            _candidatesMap[Core::Utils::ToUnderlying(QueueType::Graphics)].push(candidate);
+            _candidatesMap[Core::ToUnderlying(QueueType::Graphics)].push(candidate);
         if (property.queueFlags & ToFlags(QueueFlags::Compute))
-            _candidatesMap[Core::Utils::ToUnderlying(QueueType::Compute)].push(candidate);
+            _candidatesMap[Core::ToUnderlying(QueueType::Compute)].push(candidate);
         if (property.queueFlags & ToFlags(QueueFlags::Transfer))
-            _candidatesMap[Core::Utils::ToUnderlying(QueueType::Transfer)].push(candidate);
+            _candidatesMap[Core::ToUnderlying(QueueType::Transfer)].push(candidate);
         ++queueFamilyIndex;
     }
 }
