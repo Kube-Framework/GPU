@@ -18,8 +18,7 @@ inline void kF::GPU::MemoryAllocation::memoryMap(const Iterator dataBegin, const
 {
     using Value = std::remove_cvref_t<decltype(*std::declval<Iterator>())>;
 
-    auto &allocator = parent().memoryAllocator();
-    auto mapped = allocator.beginMemoryMap<Value>(*this);
+    auto mapped = beginMemoryMap<Value>();
     std::uninitialized_copy(dataBegin, dataEnd, mapped);
-    allocator.endMemoryMap(*this);
+    endMemoryMap();
 }

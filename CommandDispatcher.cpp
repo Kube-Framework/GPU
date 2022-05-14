@@ -54,7 +54,7 @@ bool GPU::CommandDispatcher::tryAcquireNextFrame(void) noexcept
     );
     if (res != VK_SUCCESS) { // Check if the frame has been acquired or not
         _availableSemaphores.push(std::move(semaphore)); // If not, store the free semaphore for later use
-        if (res == VK_NOT_READY | res == VK_TIMEOUT | res == VK_ERROR_OUT_OF_DATE_KHR | res == VK_SUBOPTIMAL_KHR)
+        if ((res == VK_NOT_READY) | (res == VK_TIMEOUT) | (res == VK_ERROR_OUT_OF_DATE_KHR) | (res == VK_SUBOPTIMAL_KHR))
             return false;
         else
             kFAbort("GPU::CommandDispatcher::tryAcquireNextFrame: Couldn't acquire next image '", ErrorMessage(res), '\'');
