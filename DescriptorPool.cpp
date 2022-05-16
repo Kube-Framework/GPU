@@ -41,16 +41,17 @@ GPU::DescriptorSetHandle GPU::DescriptorPool::allocate(const DescriptorSetLayout
 
 void GPU::DescriptorPool::allocate(
         const DescriptorSetLayoutHandle * const layoutBegin, const DescriptorSetLayoutHandle * const layoutEnd,
-        DescriptorSetHandle * const descriptorSetBegin, DescriptorSetHandle * const descriptorSetEnd) noexcept
+        DescriptorSetHandle * const descriptorSetBegin, [[maybe_unused]] DescriptorSetHandle * const descriptorSetEnd) noexcept
 {
-    kFAssert(std::distance(layoutBegin, layoutEnd) == std::distance(descriptorSetBegin, descriptorSetEnd),
+    const auto count = std::distance(layoutBegin, layoutEnd);
+    kFAssert(count == std::distance(descriptorSetBegin, descriptorSetEnd),
         "GPU::DescriptorPool::allocate: Distance between descriptorSetBegin & descriptorSetEnd doesn't correspond to the input layouts distance !");
 
     const VkDescriptorSetAllocateInfo allocInfo {
         .sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO,
         .pNext = nullptr,
         .descriptorPool = handle(),
-        .descriptorSetCount = static_cast<std::uint32_t>(std::distance(layoutBegin, layoutEnd)),
+        .descriptorSetCount = static_cast<std::uint32_t>(count),
         .pSetLayouts = layoutBegin
     };
 
