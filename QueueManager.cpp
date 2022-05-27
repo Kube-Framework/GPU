@@ -86,7 +86,7 @@ GPU::QueueManager::QueueCreateInfos GPU::QueueManager::registerQueues(void) noex
 
 void GPU::QueueManager::retreiveQueuesHandlers(void) noexcept
 {
-    Core::TinyVector<QueueDescriptor *> past;
+    Core::Vector<QueueDescriptor *> past;
 
     for (auto &desc : _array) {
         auto it = std::find_if(past.begin(), past.end(), [&desc](const auto *p) {
@@ -119,7 +119,7 @@ void GPU::QueueManager::retreiveQueuesHandlers(void) noexcept
 
 void GPU::QueueManager::retreiveFamilyQueueIndexes(void) noexcept
 {
-    Core::TinyVector<VkQueueFamilyProperties> properties;
+    Core::Vector<VkQueueFamilyProperties> properties;
     std::uint32_t queueFamilyIndex = 0;
     VkBool32 isPresent = false;
 

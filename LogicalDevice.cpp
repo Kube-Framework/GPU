@@ -28,7 +28,7 @@ GPU::LogicalDevice::LogicalDevice(void) noexcept
 {
     // Setup queues
     auto queueInfos = parent().queueManager().registerQueues();
-    Core::TinySmallVector<float, 4> priorities;
+    Core::SmallVector<float, 4> priorities;
     for (auto &info : queueInfos) {
         if (info.queueCount != priorities.size())
             priorities.resize(info.queueCount, 1);
@@ -103,7 +103,7 @@ GPU::LogicalDevice::DeviceFeaturesPtr GPU::LogicalDevice::getDeviceFeatures(void
 GPU::LogicalDevice::Extensions GPU::LogicalDevice::getExtensions(void) const noexcept
 {
     const Extensions extensions { VK_KHR_SWAPCHAIN_EXTENSION_NAME, VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME };
-    Core::TinyVector<VkExtensionProperties> properties;
+    Core::Vector<VkExtensionProperties> properties;
 
     if (const auto res = Internal::FillVkContainer(properties, &::vkEnumerateDeviceExtensionProperties, parent().physicalDevice(), nullptr); res != VK_SUCCESS)
         kFAbort("GPU::LogicalDevice::getExtensions: Couldn't enumerate logical device extensions '", ErrorMessage(res), '\'');

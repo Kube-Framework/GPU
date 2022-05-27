@@ -42,7 +42,7 @@ public:
     };
 
     /** @brief All candidates of a queue family */
-    using QueueCandidates = Core::TinyVector<QueueCandidate, GPUAllocator>;
+    using QueueCandidates = Core::Vector<QueueCandidate, GPUAllocator>;
 
     /** @brief An array containing all available queue candidates */
     using QueueCandidateMap = std::array<QueueCandidates, QueueCount>;
@@ -51,7 +51,7 @@ public:
     using QueueCreateInfo = VkDeviceQueueCreateInfo;
 
     /** @brief Describe how to multiple queues */
-    using QueueCreateInfos = Core::TinyVector<QueueCreateInfo, GPUAllocator>;
+    using QueueCreateInfos = Core::Vector<QueueCreateInfo, GPUAllocator>;
 
 
     /** @brief Destroy queue handler */

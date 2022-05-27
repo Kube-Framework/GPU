@@ -27,7 +27,7 @@ GPU::Surface::Surface(void) noexcept
 
 GPU::SurfaceFormat GPU::Surface::getSurfaceFormat(void) const noexcept
 {
-    Core::TinyVector<SurfaceFormat> formats;
+    Core::Vector<SurfaceFormat> formats;
 
     if (const auto res = Internal::FillVkContainer(formats, &::vkGetPhysicalDeviceSurfaceFormatsKHR, parent().physicalDevice(), handle()); res != VK_SUCCESS || formats.empty())
         kFAbort("GPU::Surface::surfaceFormat: Couldn't retreive physical device surface format '", ErrorMessage(res), '\'');
@@ -42,7 +42,7 @@ GPU::SurfaceFormat GPU::Surface::getSurfaceFormat(void) const noexcept
 
 GPU::PresentMode GPU::Surface::getPresentMode(void) const noexcept
 {
-    Core::TinyVector<VkPresentModeKHR> modes;
+    Core::Vector<VkPresentModeKHR> modes;
 
     if (const auto res = Internal::FillVkContainer(modes, &::vkGetPhysicalDeviceSurfacePresentModesKHR, parent().physicalDevice(), handle()); res != VK_SUCCESS)
         kFAbort("GPU::Surface::getPresentMode: Couldn't retreive physical device present modes");

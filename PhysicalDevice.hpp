@@ -20,7 +20,7 @@ class kF::GPU::PhysicalDevice : public CachedHandle<PhysicalDeviceHandle>
 {
 public:
     /** @brief A list of vulkan devices */
-    using Devices = Core::TinyVector<PhysicalDeviceHandle>;
+    using Devices = Core::Vector<PhysicalDeviceHandle>;
 
 
     /** @brief Destruct the physical device */

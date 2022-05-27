@@ -21,7 +21,7 @@ public:
     struct alignas_half_cacheline FrameCache
     {
         /** @brief List of Framebuffer */
-        using Framebuffers = Core::TinySmallVector<Framebuffer, Core::CacheLineQuarterSize / sizeof(Framebuffer), GPUAllocator>;
+        using Framebuffers = Core::SmallVector<Framebuffer, Core::CacheLineQuarterSize / sizeof(Framebuffer), GPUAllocator>;
 
         Framebuffers framebuffers {};
     };

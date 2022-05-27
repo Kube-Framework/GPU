@@ -19,10 +19,10 @@ class kF::GPU::Instance : public CachedHandle<VkInstance>
 {
 public:
     /** @brief Instance extension list */
-    using Extensions = Core::TinyVector<const char *>;
+    using Extensions = Core::Vector<const char *>;
 
     /** @brief Debug layers list */
-    using Layers = Core::TinyVector<const char *>;
+    using Layers = Core::Vector<const char *>;
 
 
     /** @brief Destroy the instance */

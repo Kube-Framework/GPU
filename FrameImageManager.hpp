@@ -21,7 +21,7 @@ class alignas_cacheline kF::GPU::FrameImageManager : public CachedGPUObject
 {
 public:
     /** @brief List of framebuffer image formats */
-    using CustomFormats = Core::TinyVector<Format, GPUAllocator>;
+    using CustomFormats = Core::Vector<Format, GPUAllocator>;
 
     /** @brief Cache of a custom image within a frame */
     struct alignas_half_cacheline ImageCache
@@ -38,7 +38,7 @@ public:
     {
         ImageHandle colorImage {};
         ImageView colorView {};
-        Core::TinyVector<ImageCache, GPUAllocator> customImages {};
+        Core::Vector<ImageCache, GPUAllocator> customImages {};
     };
     static_assert_fit_half_cacheline(FrameCache);
 

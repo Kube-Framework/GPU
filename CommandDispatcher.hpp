@@ -23,10 +23,10 @@ class alignas_cacheline kF::GPU::CommandDispatcher : public CachedGPUObject
 {
 public:
     /** @brief Cache of semaphore handle */
-    using SemaphoreCache = Core::TinyVector<SemaphoreHandle, GPUAllocator>;
+    using SemaphoreCache = Core::Vector<SemaphoreHandle, GPUAllocator>;
 
     /** @brief Cache of fence handle */
-    using FenceCache = Core::TinyVector<FenceHandle, GPUAllocator>;
+    using FenceCache = Core::Vector<FenceHandle, GPUAllocator>;
 
     /** @brief An array of command sorted by queue types */
     struct alignas_double_cacheline FrameCache
@@ -117,7 +117,7 @@ public:
     void presentFrame(void) noexcept;
 
 private:
-    Core::TinyVector<Semaphore, GPUAllocator> _availableSemaphores {};
+    Core::Vector<Semaphore, GPUAllocator> _availableSemaphores {};
     PerFrameCache<FrameCache, GPUAllocator> _cachedFrames;
 };
 static_assert_fit_cacheline(kF::GPU::CommandDispatcher);

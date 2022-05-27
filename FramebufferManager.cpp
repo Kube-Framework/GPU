@@ -20,7 +20,7 @@ void GPU::FramebufferManager::createFramebuffers(void) noexcept
     const auto &frameImageManager = parent().frameImageManager();
 
     // Create image view list
-    Core::TinyVector<ImageViewHandle, GPUAllocator> imageViewHandles(frameImageManager.perFrameImageCount());
+    Core::Vector<ImageViewHandle, GPUAllocator> imageViewHandles(frameImageManager.perFrameImageCount());
 
     // Create a FrameCache for each frame
     _perFrameCache.resize(frameImageManager.frameCount(),

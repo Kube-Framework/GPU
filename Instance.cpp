@@ -62,7 +62,7 @@ GPU::Instance::Layers GPU::Instance::getLayers(void) const noexcept
 #if KUBE_DEBUG_BUILD
     Layers layers { "VK_LAYER_KHRONOS_validation" };
     std::uint32_t count = 0;
-    Core::TinyVector<VkLayerProperties> avaible;
+    Core::Vector<VkLayerProperties> avaible;
 
     if (const auto res = ::vkEnumerateInstanceLayerProperties(&count, nullptr); res != VK_SUCCESS)
         kFAbort("GPU::Instance::getLayers: Couldn't enumerate instances layers properties", ErrorMessage(res), '\'');

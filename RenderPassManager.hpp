@@ -46,8 +46,8 @@ public:
     void onViewSizeChanged(void) noexcept;
 
 private:
-    Core::TinyVector<RenderPassFactory, GPUAllocator> _factories {};
-    Core::TinyVector<RenderPass, GPUAllocator> _renderPasses {};
+    Core::Vector<RenderPassFactory, GPUAllocator> _factories {};
+    Core::Vector<RenderPass, GPUAllocator> _renderPasses {};
 };
 
 static_assert_fit_cacheline(kF::GPU::RenderPassManager);

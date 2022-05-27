@@ -12,7 +12,7 @@ namespace kF::GPU
     struct FrameImageModel;
 
     /** @brief A list of frame images that describe a Framebuffer */
-    using FrameImageModels = Core::TinyVector<FrameImageModel, GPUAllocator>;
+    using FrameImageModels = Core::Vector<FrameImageModel, GPUAllocator>;
 };
 
 /** @brief Describe a frame image */
@@ -23,7 +23,7 @@ struct alignas_cacheline kF::GPU::FrameImageModel
     ImageAspectFlags imageAspectFlags;
     ImageUsageFlags imageUsageFlags;
     ComponentMapping componentMapping;
-    Core::TinySmallVector<Format, Core::CacheLineQuarterSize / sizeof(Format), GPUAllocator> supportedFormats;
+    Core::SmallVector<Format, Core::CacheLineQuarterSize / sizeof(Format), GPUAllocator> supportedFormats;
 
 
     /** @brief Destructor */

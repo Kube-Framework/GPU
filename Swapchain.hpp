@@ -20,7 +20,7 @@ public:
     static constexpr std::uint32_t MaxCachedFrame = 3u;
 
     /** @brief Swapchain image handles */
-    using SwapchainImages = Core::TinyVector<ImageHandle, GPUAllocator>;
+    using SwapchainImages = Core::Vector<ImageHandle, GPUAllocator>;
 
 
     /** @brief Destrut the swapchain */

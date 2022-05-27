@@ -19,7 +19,7 @@ class kF::GPU::LogicalDevice : public CachedHandle<VkDevice>
 {
 public:
     /** @brief Logical device extension list */
-    using Extensions = Core::TinyVector<const char *>;
+    using Extensions = Core::Vector<const char *>;
 
     /** @brief Describes the features of a device */
     struct DeviceFeatures
