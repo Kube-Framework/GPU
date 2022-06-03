@@ -74,7 +74,6 @@ kube_add_library(GPU
         Instance.hpp
         LogicalDevice.cpp
         LogicalDevice.hpp
-        Matrixes.hpp
         MemoryAllocation.cpp
         MemoryAllocation.hpp
         MemoryAllocation.ipp
