@@ -1,5 +1,4 @@
 find_package(SDL2 REQUIRED)
-find_package(glm REQUIRED)
 
 kube_add_library(GPU
     SOURCES
@@ -133,5 +132,4 @@ kube_add_library(GPU
         Core
         VulkanCollection
         SDL2::SDL2
-        glm::glm
 )
