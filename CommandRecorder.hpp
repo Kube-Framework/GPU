@@ -108,6 +108,13 @@ public:
         { ::vkCmdDrawIndexedIndirectCount(_command, buffer, bufferOffset, countBuffer, countBufferOffset, maxDrawCount, stride); }
 
 
+    /** @brief Set dynamic scissor
+     *  @note Graphic pipeline must be created with DynamicStage::Scissor */
+    inline void setScissor(const Rect2D &scissor) const noexcept
+        { ::vkCmdSetScissor(_command, 0, 1, &scissor); }
+
+
+
     /** @brief Bind a single vertex buffer */
     inline void bindVertexBuffer(const std::uint32_t binding, const BufferHandle buffer, const BufferSize offset = 0u) const noexcept
         { ::vkCmdBindVertexBuffers(_command, binding, 1, &buffer, &offset); }
