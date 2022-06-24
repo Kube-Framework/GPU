@@ -27,9 +27,9 @@ inline void kF::GPU::PerFrameCache<Type, Allocator>::resize(const FrameIndex cou
     reserve(count);
     for (FrameIndex i = 0; i != count; ++i) {
         if constexpr (std::is_invocable_v<Initializer, FrameIndex>)
-            new (_data + i) Type(std::invoke(initializer, i));
+            new (_data + i) Type(initializer(i));
         else
-            new (_data + i) Type(std::invoke(initializer));
+            new (_data + i) Type(initializer());
     }
 }
 
