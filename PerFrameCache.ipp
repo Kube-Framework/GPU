@@ -9,7 +9,7 @@ template<typename Type, kF::Core::StaticAllocatorRequirements Allocator>
 inline void kF::GPU::PerFrameCache<Type, Allocator>::resize(const FrameIndex count) noexcept
 {
     reserve(count);
-    std::uninitialized_default_construct_n(_data, count);
+    std::uninitialized_value_construct_n(_data, count);
 }
 
 template<typename Type, kF::Core::StaticAllocatorRequirements Allocator>
