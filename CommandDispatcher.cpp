@@ -22,7 +22,7 @@ void GPU::CommandDispatcher::dispatch(const QueueType queueType,
 {
     const auto res = ::vkQueueSubmit(
         parent().queueManager().queue(queueType),
-        Core::Distance<std::uint32_t>(submitBegin, submitEnd)),
+        Core::Distance<std::uint32_t>(submitBegin, submitEnd),
         submitBegin,
         fence
     );

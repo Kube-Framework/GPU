@@ -36,7 +36,7 @@ void GPU::CommandPool::add(const CommandLevel level, CommandHandle * const comma
         .pNext = nullptr,
         .commandPool = handle(),
         .level = static_cast<VkCommandBufferLevel>(level),
-        .commandBufferCount = Core::Distance<std::uint32_t>(commandFrom, commandTo))
+        .commandBufferCount = Core::Distance<std::uint32_t>(commandFrom, commandTo)
     };
 
     if (const auto res = ::vkAllocateCommandBuffers(parent().logicalDevice(), &commandInfo, commandFrom); res != VK_SUCCESS)
@@ -47,7 +47,7 @@ void GPU::CommandPool::remove(const CommandHandle * const commandBegin, const Co
 {
     ::vkFreeCommandBuffers(
         parent().logicalDevice(), handle(),
-        Core::Distance<std::uint32_t>(commandBegin, commandEnd)), commandBegin
+        Core::Distance<std::uint32_t>(commandBegin, commandEnd), commandBegin
     );
 }
 

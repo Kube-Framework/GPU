@@ -39,7 +39,7 @@ public:
 
     /** @brief Execute secondary command buffers */
     inline void executeCommands(const CommandHandle * const commandBegin, const CommandHandle * const commandEnd) const noexcept
-        { ::vkCmdExecuteCommands(_command, Core::Distance<std::uint32_t>(commandBegin, commandEnd)), commandBegin); }
+        { ::vkCmdExecuteCommands(_command, Core::Distance<std::uint32_t>(commandBegin, commandEnd), commandBegin); }
 
 
     /** @brief Begin a render pass */
@@ -137,7 +137,7 @@ public:
     /** @brief Buffer copy command with multiple regions */
     inline void copyBuffer(const BufferHandle srcBuffer, const BufferHandle dstBuffer,
             const BufferCopy * const regionBegin, const BufferCopy * const regionEnd) const noexcept
-        { ::vkCmdCopyBuffer(_command, srcBuffer, dstBuffer, Core::Distance<std::uint32_t>(regionBegin, regionEnd)), regionBegin); }
+        { ::vkCmdCopyBuffer(_command, srcBuffer, dstBuffer, Core::Distance<std::uint32_t>(regionBegin, regionEnd), regionBegin); }
 
 
     /** @brief Buffer to image copy command with one region */
@@ -147,7 +147,7 @@ public:
     /** @brief Buffer to image copy command with multiple regions */
     inline void copyBufferToImage(const BufferHandle srcBuffer, const ImageHandle dstImage, const ImageLayout dstImageLayout,
             const BufferImageCopy * const regionBegin, const BufferImageCopy * const regionEnd) const noexcept
-        { ::vkCmdCopyBufferToImage(_command, srcBuffer, dstImage, static_cast<VkImageLayout>(dstImageLayout), Core::Distance<std::uint32_t>(regionBegin, regionEnd)), regionBegin); }
+        { ::vkCmdCopyBufferToImage(_command, srcBuffer, dstImage, static_cast<VkImageLayout>(dstImageLayout), Core::Distance<std::uint32_t>(regionBegin, regionEnd), regionBegin); }
 
 
     /** @brief Dispatch a compute shader command */

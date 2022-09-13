@@ -25,9 +25,9 @@ struct kF::GPU::ViewportModel : public VkPipelineViewportStateCreateInfo
             .sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO,
             .pNext = nullptr,
             .flags = ToFlags(ViewportCreateFlags::None),
-            .viewportCount = Core::Distance<std::uint32_t>(viewportBegin, viewportEnd)),
+            .viewportCount = Core::Distance<std::uint32_t>(viewportBegin, viewportEnd),
             .pViewports = viewportBegin,
-            .scissorCount = Core::Distance<std::uint32_t>(scissorBegin, scissorEnd)),
+            .scissorCount = Core::Distance<std::uint32_t>(scissorBegin, scissorEnd),
             .pScissors = scissorBegin
         } {}
 

@@ -26,7 +26,7 @@ struct kF::GPU::DescriptorSetLayoutModel : public VkDescriptorSetLayoutCreateInf
             .sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO,
             .pNext = nullptr,
             .flags = ToFlags(flags_),
-            .bindingCount = Core::Distance<std::uint32_t>(bindingBegin, bindingEnd)),
+            .bindingCount = Core::Distance<std::uint32_t>(bindingBegin, bindingEnd),
             .pBindings = bindingBegin
         } {}
 

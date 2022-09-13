@@ -28,11 +28,11 @@ struct kF::GPU::RenderPassModel : public VkRenderPassCreateInfo
             .sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO,
             .pNext = nullptr,
             .flags = VkRenderPassCreateFlags(),
-            .attachmentCount = Core::Distance<std::uint32_t>(attachmentBegin, attachmentEnd)),
+            .attachmentCount = Core::Distance<std::uint32_t>(attachmentBegin, attachmentEnd),
             .pAttachments = attachmentBegin,
-            .subpassCount = Core::Distance<std::uint32_t>(subpassBegin, subpassEnd)),
+            .subpassCount = Core::Distance<std::uint32_t>(subpassBegin, subpassEnd),
             .pSubpasses = subpassBegin,
-            .dependencyCount = Core::Distance<std::uint32_t>(dependencyBegin, dependencyEnd)),
+            .dependencyCount = Core::Distance<std::uint32_t>(dependencyBegin, dependencyEnd),
             .pDependencies = dependencyBegin
         } {}
 

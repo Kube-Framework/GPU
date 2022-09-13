@@ -13,7 +13,7 @@ void GPU::DescriptorSetUpdate::UpdateWrite(
 {
     vkUpdateDescriptorSets(
         GPUObject::Parent().logicalDevice(),
-        Core::Distance<std::uint32_t>(writeModelBegin, writeModelEnd)),
+        Core::Distance<std::uint32_t>(writeModelBegin, writeModelEnd),
         writeModelBegin,
         0,
         nullptr
@@ -28,7 +28,7 @@ void GPU::DescriptorSetUpdate::UpdateCopy(
         GPUObject::Parent().logicalDevice(),
         0,
         nullptr,
-        Core::Distance<std::uint32_t>(copyModelBegin, copyModelEnd)), copyModelBegin
+        Core::Distance<std::uint32_t>(copyModelBegin, copyModelEnd), copyModelBegin
     );
 }
 
@@ -39,9 +39,9 @@ void GPU::DescriptorSetUpdate::UpdateWriteAndCopy(
 {
     vkUpdateDescriptorSets(
         GPUObject::Parent().logicalDevice(),
-        Core::Distance<std::uint32_t>(writeModelBegin, writeModelEnd)),
+        Core::Distance<std::uint32_t>(writeModelBegin, writeModelEnd),
         writeModelBegin,
-        Core::Distance<std::uint32_t>(copyModelBegin, copyModelEnd)),
+        Core::Distance<std::uint32_t>(copyModelBegin, copyModelEnd),
         copyModelBegin
     );
 }

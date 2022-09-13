@@ -61,7 +61,7 @@ void GPU::DescriptorPool::allocate(
 
 void GPU::DescriptorPool::deallocate(const DescriptorSetHandle * const begin, const DescriptorSetHandle * const end) noexcept
 {
-    ::vkFreeDescriptorSets(parent().logicalDevice(), handle(), Core::Distance<std::uint32_t>(begin, end)), begin);
+    ::vkFreeDescriptorSets(parent().logicalDevice(), handle(), Core::Distance<std::uint32_t>(begin, end), begin);
 }
 
 void GPU::DescriptorPool::reset(void) noexcept

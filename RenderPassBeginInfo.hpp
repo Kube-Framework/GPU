@@ -29,7 +29,7 @@ struct kF::GPU::RenderPassBeginInfo : public VkRenderPassBeginInfo
             .renderPass = renderPass_,
             .framebuffer = framebuffer_,
             .renderArea = renderArea_,
-            .clearValueCount = Core::Distance<std::uint32_t>(clearBegin, clearEnd)),
+            .clearValueCount = Core::Distance<std::uint32_t>(clearBegin, clearEnd),
             .pClearValues = clearBegin
         } {}
 

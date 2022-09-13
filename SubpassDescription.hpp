@@ -28,13 +28,13 @@ struct kF::GPU::SubpassDescription : public VkSubpassDescription
         : VkSubpassDescription {
             .flags = VkSubpassDescriptionFlags(),
             .pipelineBindPoint = static_cast<VkPipelineBindPoint>(pipelineBindPoint_),
-            .inputAttachmentCount = Core::Distance<std::uint32_t>(inputAttachmentBegin, inputAttachmentEnd)),
+            .inputAttachmentCount = Core::Distance<std::uint32_t>(inputAttachmentBegin, inputAttachmentEnd),
             .pInputAttachments = inputAttachmentBegin,
-            .colorAttachmentCount = Core::Distance<std::uint32_t>(colorAttachmentBegin, colorAttachmentEnd)),
+            .colorAttachmentCount = Core::Distance<std::uint32_t>(colorAttachmentBegin, colorAttachmentEnd),
             .pColorAttachments = colorAttachmentBegin,
             .pResolveAttachments = nullptr,
             .pDepthStencilAttachment = depthStencilAttachment,
-            .preserveAttachmentCount = Core::Distance<std::uint32_t>(preserveAttachmentBegin, preserveAttachmentEnd)),
+            .preserveAttachmentCount = Core::Distance<std::uint32_t>(preserveAttachmentBegin, preserveAttachmentEnd),
             .pPreserveAttachments = preserveAttachmentBegin
         } {}
 
