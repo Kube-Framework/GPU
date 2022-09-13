@@ -13,7 +13,7 @@ using namespace kF;
 bool GPU::Fence::Wait(const FenceHandle * const begin, const FenceHandle * const end,
         const bool waitAll, const std::uint64_t timeout) noexcept
 {
-    if (const auto res = ::vkWaitForFences(Parent().logicalDevice(), static_cast<std::uint32_t>(std::distance(begin, end)), begin, waitAll, timeout); res == VK_TIMEOUT)
+    if (const auto res = ::vkWaitForFences(Parent().logicalDevice(), Core::Distance<std::uint32_t>(begin, end)), begin, waitAll, timeout); res == VK_TIMEOUT)
         return false;
     else if (res != VK_SUCCESS)
         kFAbort("GPU::Fence::Wait: Error on waiting fence(s) '", ErrorMessage(res), '\'');
@@ -22,7 +22,7 @@ bool GPU::Fence::Wait(const FenceHandle * const begin, const FenceHandle * const
 
 void GPU::Fence::Reset(const FenceHandle * const begin, const FenceHandle * const end) noexcept
 {
-    ::vkResetFences(Parent().logicalDevice(), static_cast<std::uint32_t>(std::distance(begin, end)), begin);
+    ::vkResetFences(Parent().logicalDevice(), Core::Distance<std::uint32_t>(begin, end)), begin);
 }
 
 GPU::Fence::~Fence(void) noexcept

@@ -27,9 +27,9 @@ struct kF::GPU::VertexInputModel : public VkPipelineVertexInputStateCreateInfo
             .sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO,
             .pNext = nullptr,
             .flags = ToFlags(VertexInputCreateFlags::None),
-            .vertexBindingDescriptionCount = static_cast<std::uint32_t>(std::distance(bindingBegin, bindingEnd)),
+            .vertexBindingDescriptionCount = Core::Distance<std::uint32_t>(bindingBegin, bindingEnd)),
             .pVertexBindingDescriptions = bindingBegin,
-            .vertexAttributeDescriptionCount = static_cast<std::uint32_t>(std::distance(attributeBegin, attributeEnd)),
+            .vertexAttributeDescriptionCount = Core::Distance<std::uint32_t>(attributeBegin, attributeEnd)),
             .pVertexAttributeDescriptions = attributeBegin
         } {}
 

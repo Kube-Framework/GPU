@@ -23,7 +23,7 @@ struct kF::GPU::SpecializationInfo : public VkSpecializationInfo
             const SpecializationMapEntry * const mapBegin, const SpecializationMapEntry * const mapEnd,
             const void * const dataBegin, const void * const dataEnd) noexcept
         : VkSpecializationInfo {
-            .mapEntryCount = static_cast<std::uint32_t>(std::distance(mapBegin, mapEnd)),
+            .mapEntryCount = Core::Distance<std::uint32_t>(mapBegin, mapEnd)),
             .pMapEntries = mapBegin,
             .dataSize = static_cast<std::uint32_t>(
                 std::distance(reinterpret_cast<const std::uint8_t *>(dataBegin), reinterpret_cast<const std::uint8_t *>(dataEnd))

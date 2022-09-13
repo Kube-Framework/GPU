@@ -23,7 +23,7 @@ struct kF::GPU::DescriptorSetLayoutBindingFlagsModel : public VkDescriptorSetLay
         : VkDescriptorSetLayoutBindingFlagsCreateInfo {
             .sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO,
             .pNext = nullptr,
-            .bindingCount = static_cast<std::uint32_t>(std::distance(flagsFrom, flagsTo)),
+            .bindingCount = Core::Distance<std::uint32_t>(flagsFrom, flagsTo)),
             .pBindingFlags = reinterpret_cast<const VkDescriptorBindingFlags *>(flagsFrom)
         } {}
 

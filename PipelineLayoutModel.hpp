@@ -25,9 +25,9 @@ struct kF::GPU::PipelineLayoutModel : public VkPipelineLayoutCreateInfo
             .sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO,
             .pNext = nullptr,
             .flags = ToFlags(PipelineLayoutCreateFlags::None),
-            .setLayoutCount = static_cast<std::uint32_t>(std::distance(setLayoutBegin, setLayoutEnd)),
+            .setLayoutCount = Core::Distance<std::uint32_t>(setLayoutBegin, setLayoutEnd)),
             .pSetLayouts = setLayoutBegin,
-            .pushConstantRangeCount = static_cast<std::uint32_t>(std::distance(pushConstantBegin, pushConstantEnd)),
+            .pushConstantRangeCount = Core::Distance<std::uint32_t>(pushConstantBegin, pushConstantEnd)),
             .pPushConstantRanges = pushConstantBegin
         } {}
 

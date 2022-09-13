@@ -48,7 +48,7 @@ struct kF::GPU::GraphicPipelineModel : public VkGraphicsPipelineCreateInfo
             .sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO,
             .pNext = nullptr,
             .flags = ToFlags(flags_),
-            .stageCount = static_cast<std::uint32_t>(std::distance(stageBegin, stageEnd)),
+            .stageCount = Core::Distance<std::uint32_t>(stageBegin, stageEnd)),
             .pStages = stageBegin,
             .pVertexInputState = &vertexInputModel,
             .pInputAssemblyState = &inputAssemblyModel,

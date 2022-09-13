@@ -28,7 +28,7 @@ struct kF::GPU::ColorBlendModel : public VkPipelineColorBlendStateCreateInfo
             .flags = ToFlags(ColorBlendCreateFlags::None),
             .logicOpEnable = logicOpEnable_,
             .logicOp = static_cast<VkLogicOp>(logicOp_),
-            .attachmentCount = static_cast<std::uint32_t>(std::distance(attachmentBegin, attachmentEnd)),
+            .attachmentCount = Core::Distance<std::uint32_t>(attachmentBegin, attachmentEnd)),
             .pAttachments = attachmentBegin,
             .blendConstants = {
                 blendRed, blendGreen, blendBlue, blendAlpha

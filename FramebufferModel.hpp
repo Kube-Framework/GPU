@@ -27,7 +27,7 @@ struct kF::GPU::FramebufferModel : public VkFramebufferCreateInfo
             .pNext = nullptr,
             .flags = ToFlags(flags_),
             .renderPass = renderPass_,
-            .attachmentCount = static_cast<std::uint32_t>(std::distance(attachmentBegin, attachmentEnd)),
+            .attachmentCount = Core::Distance<std::uint32_t>(attachmentBegin, attachmentEnd)),
             .pAttachments = attachmentBegin,
             .width = width_,
             .height = height_,

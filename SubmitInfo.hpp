@@ -28,12 +28,12 @@ struct kF::GPU::SubmitInfo : public VkSubmitInfo
         : VkSubmitInfo {
             .sType = VK_STRUCTURE_TYPE_SUBMIT_INFO,
             .pNext = nullptr,
-            .waitSemaphoreCount = static_cast<std::uint32_t>(std::distance(waitBegin, waitEnd)),
+            .waitSemaphoreCount = Core::Distance<std::uint32_t>(waitBegin, waitEnd)),
             .pWaitSemaphores = waitBegin,
             .pWaitDstStageMask = reinterpret_cast<const VkPipelineStageFlags *>(waitStageBegin),
-            .commandBufferCount = static_cast<std::uint32_t>(std::distance(commandBegin, commandEnd)),
+            .commandBufferCount = Core::Distance<std::uint32_t>(commandBegin, commandEnd)),
             .pCommandBuffers = commandBegin,
-            .signalSemaphoreCount = static_cast<std::uint32_t>(std::distance(signalBegin, signalEnd)),
+            .signalSemaphoreCount = Core::Distance<std::uint32_t>(signalBegin, signalEnd)),
             .pSignalSemaphores = signalBegin
         }
     {

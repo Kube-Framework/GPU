@@ -45,7 +45,7 @@ struct kF::GPU::DescriptorSetWriteModel : public VkWriteDescriptorSet
             const DescriptorType descriptorType_, const DescriptorImageInfo *imageBegin, const DescriptorImageInfo *imageEnd) noexcept
         : DescriptorSetWriteModel(
             dstSet_, dstBinding_, dstArrayElement_,
-            static_cast<std::uint32_t>(std::distance(imageBegin, imageEnd)),
+            Core::Distance<std::uint32_t>(imageBegin, imageEnd)),
             descriptorType_,
             imageBegin,
             nullptr,
@@ -58,7 +58,7 @@ struct kF::GPU::DescriptorSetWriteModel : public VkWriteDescriptorSet
             const DescriptorType descriptorType_, const DescriptorBufferInfo *bufferBegin, const DescriptorBufferInfo *bufferEnd) noexcept
         : DescriptorSetWriteModel(
             dstSet_, dstBinding_, dstArrayElement_,
-            static_cast<std::uint32_t>(std::distance(bufferBegin, bufferEnd)),
+            Core::Distance<std::uint32_t>(bufferBegin, bufferEnd)),
             descriptorType_,
             nullptr,
             bufferBegin,
@@ -71,7 +71,7 @@ struct kF::GPU::DescriptorSetWriteModel : public VkWriteDescriptorSet
             const DescriptorType descriptorType_, const BufferViewHandle *texelBufferBegin, const BufferViewHandle *texelBufferEnd) noexcept
         : DescriptorSetWriteModel(
             dstSet_, dstBinding_, dstArrayElement_,
-            static_cast<std::uint32_t>(std::distance(texelBufferBegin, texelBufferEnd)),
+            Core::Distance<std::uint32_t>(texelBufferBegin, texelBufferEnd)),
             descriptorType_,
             nullptr,
             nullptr,

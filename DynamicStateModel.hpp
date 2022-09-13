@@ -25,7 +25,7 @@ struct kF::GPU::DynamicStateModel : public VkPipelineDynamicStateCreateInfo
             .sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO,
             .pNext = nullptr,
             .flags = ToFlags(DynamicStateCreateFlags::None),
-            .dynamicStateCount = static_cast<std::uint32_t>(std::distance(stateBegin, stateEnd)),
+            .dynamicStateCount = Core::Distance<std::uint32_t>(stateBegin, stateEnd)),
             .pDynamicStates = reinterpret_cast<const VkDynamicState *>(stateBegin)
         } {}
 

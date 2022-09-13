@@ -27,7 +27,7 @@ struct kF::GPU::DescriptorPoolModel : public VkDescriptorPoolCreateInfo
             .pNext = nullptr,
             .flags = ToFlags(flags_),
             .maxSets = maxSets_,
-            .poolSizeCount = static_cast<std::uint32_t>(std::distance(poolSizeBegin, poolSizeEnd)),
+            .poolSizeCount = Core::Distance<std::uint32_t>(poolSizeBegin, poolSizeEnd)),
             .pPoolSizes = poolSizeBegin
         } {}
 

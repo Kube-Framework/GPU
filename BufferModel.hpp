@@ -36,7 +36,7 @@ struct kF::GPU::BufferModel : public VkBufferCreateInfo
             .size = size_,
             .usage = ToFlags(usage_),
             .sharingMode = static_cast<VkSharingMode>(sharingMode_),
-            .queueFamilyIndexCount = static_cast<std::uint32_t>(std::distance(queueFamilyIndexBegin, queueFamilyIndexEnd)),
+            .queueFamilyIndexCount = Core::Distance<std::uint32_t>(queueFamilyIndexBegin, queueFamilyIndexEnd)),
             .pQueueFamilyIndices = queueFamilyIndexBegin
         } {}
 

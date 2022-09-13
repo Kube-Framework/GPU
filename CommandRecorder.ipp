@@ -17,8 +17,8 @@ inline void kF::GPU::CommandRecorder::bindDescriptorSets(const PipelineBindPoint
         const std::uint32_t * const dynamicOffsetBegin, const std::uint32_t * const dynamicOffsetEnd) const noexcept
 {
     ::vkCmdBindDescriptorSets(_command, static_cast<VkPipelineBindPoint>(pipelineBindPoint), pipelineLayout,
-        firstSet, static_cast<std::uint32_t>(std::distance(descriptorSetBegin, descriptorSetEnd)), descriptorSetBegin,
-        static_cast<std::uint32_t>(std::distance(dynamicOffsetBegin, dynamicOffsetEnd)), dynamicOffsetBegin
+        firstSet, Core::Distance<std::uint32_t>(descriptorSetBegin, descriptorSetEnd)), descriptorSetBegin,
+        Core::Distance<std::uint32_t>(dynamicOffsetBegin, dynamicOffsetEnd)), dynamicOffsetBegin
     );
 }
 
@@ -29,8 +29,8 @@ inline void kF::GPU::CommandRecorder::pipelineBarrier(const PipelineStageFlags s
 {
     ::vkCmdPipelineBarrier(
         _command, static_cast<VkPipelineStageFlags>(sourceStage), static_cast<VkPipelineStageFlags>(destinationStage), static_cast<VkDependencyFlags>(dependencyFlags),
-        static_cast<std::uint32_t>(std::distance(memoryBarrierBegin, memoryBarrierEnd)), memoryBarrierBegin,
-        static_cast<std::uint32_t>(std::distance(bufferBarrierBegin, bufferBarrierEnd)), bufferBarrierBegin,
-        static_cast<std::uint32_t>(std::distance(imageBarrierBegin, imageBarrierEnd)), imageBarrierBegin
+        Core::Distance<std::uint32_t>(memoryBarrierBegin, memoryBarrierEnd)), memoryBarrierBegin,
+        Core::Distance<std::uint32_t>(bufferBarrierBegin, bufferBarrierEnd)), bufferBarrierBegin,
+        Core::Distance<std::uint32_t>(imageBarrierBegin, imageBarrierEnd)), imageBarrierBegin
     );
 }
