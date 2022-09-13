@@ -1,13 +1,21 @@
 #pragma once
 
+#include <Kube/Core/Platform.hpp>
+
 #define VMA_VULKAN_VERSION 1002000
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#pragma GCC diagnostic ignored "-Wunused-variable"
-#pragma GCC diagnostic ignored "-Wparentheses"
-#pragma GCC diagnostic ignored "-Wimplicit-fallthrough"
-#pragma GCC diagnostic ignored "-Wconversion"
+#if KUBE_COMPILER_GCC
+# pragma GCC diagnostic push
+# pragma GCC diagnostic ignored "-Wold-style-cast"
+# pragma GCC diagnostic ignored "-Wunused-parameter"
+# pragma GCC diagnostic ignored "-Wunused-variable"
+# pragma GCC diagnostic ignored "-Wparentheses"
+# pragma GCC diagnostic ignored "-Wimplicit-fallthrough"
+# pragma GCC diagnostic ignored "-Wconversion"
+#endif
+
 #include <vk_mem_alloc.h>
-#pragma GCC diagnostic pop
+
+#if KUBE_COMPILER_GCC
+# pragma GCC diagnostic pop
+#endif
