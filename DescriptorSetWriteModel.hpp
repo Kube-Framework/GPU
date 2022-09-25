@@ -1,5 +1,5 @@
 /**
- * @ Author: Pierre Veysseyre
+ * @ Author: Matthieu Moinvaziri
  * @ Description: DescriptorSetWrite
  */
 
