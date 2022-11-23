@@ -14,8 +14,8 @@ GPU::FrameImageManager::FrameImageManager(FrameImageModels &&models) noexcept
     createFrameImages();
 
 #if KUBE_DEBUG_BUILD
-    kFInfo("Frame count: ", frameCount());
-    kFInfo("Per frame image count: ", perFrameImageCount());
+    kFInfo("[GPU] Frame count: ", frameCount());
+    kFInfo("[GPU] Per frame image count: ", perFrameImageCount());
 #endif
 }
 

@@ -55,7 +55,7 @@ GPU::QueueManager::QueueCreateInfos GPU::QueueManager::registerQueues(void) noex
         }
         // Ensure we found a unique candidate
         if (!queueFound) [[unlikely]]
-            kFInfo("GPU::QueueManager::registerQueues: Queue conflict '",
+            kFInfo("[GPU] GPU::QueueManager::registerQueues: Queue conflict '",
                     QueueTypeName(static_cast<QueueType>(type)), "', with family ",
                     descriptor.queueFamilyIndex, " and index ", descriptor.queueIndex);
         // Ensure the queue family is not in create info list
@@ -101,7 +101,7 @@ void GPU::QueueManager::retreiveQueuesHandlers(void) noexcept
     }
 
 #if KUBE_DEBUG_BUILD
-    kFInfo("Queues:");
+    kFInfo("[GPU] Queues:");
     for (std::size_t type = 0ul; type < static_cast<std::size_t>(QueueType::Count); ++type) {
         kFInfo('\t', QueueTypeName(static_cast<QueueType>(type)));
         if (!_candidatesMap[type].empty()) {

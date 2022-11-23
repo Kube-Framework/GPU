@@ -36,7 +36,7 @@ GPU::SurfaceFormat GPU::Surface::getSurfaceFormat(void) const noexcept
             continue;
         return format;
     }
-    kFError("GPU::Surface::surfaceFormat: Couldn't find SurfaceFormat with B8G8R8A8_UNORM and SRGB_NONLINEAR, using first avaible format");
+    kFError("[GPU] Couldn't find SurfaceFormat with B8G8R8A8_UNORM and SRGB_NONLINEAR, using first avaible format");
     return formats[0];
 }
 
@@ -50,7 +50,7 @@ GPU::PresentMode GPU::Surface::getPresentMode(void) const noexcept
         if (static_cast<PresentMode>(mode) == PresentMode::MailboxKhr)
             return static_cast<PresentMode>(mode);
     }
-    kFError("GPU::Surface::getPresentMode: PresentMode::Mailbox is not available, using PresentMode::Fifo");
+    kFError("[GPU] PresentMode::Mailbox is not available, using PresentMode::Fifo");
     return PresentMode::FifoKhr;
 }
 

@@ -62,9 +62,7 @@ void GPU::Swapchain::createSwapchain(const SwapchainHandle oldSwapchain) noexcep
     _surfaceFormat = surfaceFormat;
     _presentMode = presentMode;
 #if KUBE_DEBUG_BUILD
-    kFInfo("Swapchain creation:");
-    kFInfo("\tPresentMode: ", PresentModeName(_presentMode));
-    kFInfo("\tExtent2D: ", _extent.width, ", ", _extent.height);
+    kFInfo("[GPU] Swapchain creation: PresentMode '", PresentModeName(_presentMode), "' Extent (",  _extent.width, ", ", _extent.height, ')');
 #endif
 }
 

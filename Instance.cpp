@@ -48,12 +48,26 @@ GPU::Instance::Instance(const Core::Version applicationVersion) noexcept
     if (const auto res = ::vkCreateInstance(&instanceInfo, nullptr, &handle()); res != VK_SUCCESS)
         kFAbort("GPU::Instance:: Couldn't create instance '", ErrorMessage(res), '\'');
 #if KUBE_DEBUG_BUILD
-    kFInfo("Extensions:");
-    for (auto &extension : extensions)
-        kFInfo('\t', extension);
-    kFInfo("Layers:");
-    for (auto &layer : layers)
-        kFInfo('\t', layer);
+    kFInfoRaw("[GPU] Extensions:");
+    bool first = true;
+    for (const auto &extension : extensions) {
+        if (!first)
+            kFInfoRaw(", ");
+        else
+            first = false;
+        kFInfoRaw(extension);
+    }
+    kFInfo();
+    kFInfoRaw("[GPU] Layers:");
+    first = true;
+    for (const auto &layer : layers) {
+        if (!first)
+            kFInfoRaw(", ");
+        else
+            first = false;
+        kFInfoRaw(layer);
+    }
+    kFInfo();
 #endif
 }
 
@@ -80,7 +94,7 @@ GPU::Instance::Layers GPU::Instance::getLayers(void) const noexcept
         if (found)
             ++it;
         else {
-            kFError("GPU::Instance::getLayers: Couldn't use debug layer '", *it, '\'');
+            kFError("[GPU] Couldn't use debug layer '", *it, '\'');
             it = layers.erase(it);
         }
     }

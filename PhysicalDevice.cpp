@@ -17,16 +17,15 @@ GPU::PhysicalDevice::PhysicalDevice(void) noexcept
     selectDevice(devices);
 
 #if KUBE_DEBUG_BUILD
-    kFInfo("Devices:");
+    kFInfo("[GPU] Devices:");
     for (auto &device : devices) {
         VkPhysicalDeviceProperties properties;
         ::vkGetPhysicalDeviceProperties(device, &properties);
         if (device == handle()) [[unlikely]]
             _properties = decltype(_properties)::Make(properties);
-        kFInfo((device == handle() ? "\t-> " : "\t"), properties.deviceName);
-        kFInfo("\t\tmaxComputeWorkGroupInvocations: ", properties.limits.maxComputeWorkGroupInvocations);
-        kFInfo("\t\tmaxComputeWorkGroupCount: ", properties.limits.maxComputeWorkGroupCount[0], ", ", properties.limits.maxComputeWorkGroupCount[1], ", ", properties.limits.maxComputeWorkGroupCount[2]);
-        kFInfo("\t\tmaxComputeWorkGroupSize: ", properties.limits.maxComputeWorkGroupSize[0], ", ", properties.limits.maxComputeWorkGroupSize[1], ", ", properties.limits.maxComputeWorkGroupSize[2]);
+        kFInfo((device == handle() ? "\t-> " : "\t"), properties.deviceName, ": invocations ", properties.limits.maxComputeWorkGroupInvocations,
+            " group count (", properties.limits.maxComputeWorkGroupCount[0], ", ", properties.limits.maxComputeWorkGroupCount[1], ", ", properties.limits.maxComputeWorkGroupCount[2],
+            ") group size (", properties.limits.maxComputeWorkGroupSize[0], ", ", properties.limits.maxComputeWorkGroupSize[1], ", ", properties.limits.maxComputeWorkGroupSize[2], ')');
     }
 #endif
 }
