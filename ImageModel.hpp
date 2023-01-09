@@ -26,11 +26,21 @@ struct kF::GPU::ImageModel : public VkImageCreateInfo
     ~ImageModel(void) noexcept = default;
 
     /** @brief Initialize constructor */
-    ImageModel(const ImageCreateFlags flags_, const ImageType type_, const Format format_, const Extent3D &extent_,
-            const std::uint32_t mipLevels_, const std::uint32_t arrayLayers_, const SampleCountFlags samples_,
-            const ImageTiling tiling_, const ImageUsageFlags usage_, const SharingMode sharingMode_,
-            const std::uint32_t * const queueFamilyIndexBegin, const std::uint32_t * const queueFamilyIndexEnd,
-            const ImageLayout initialLayout_) noexcept
+    ImageModel(
+        const ImageCreateFlags flags_,
+        const ImageType type_,
+        const Format format_,
+        const Extent3D &extent_,
+        const std::uint32_t mipLevels_,
+        const std::uint32_t arrayLayers_,
+        const SampleCountFlags samples_,
+        const ImageTiling tiling_,
+        const ImageUsageFlags usage_,
+        const SharingMode sharingMode_,
+        const std::uint32_t * const queueFamilyIndexBegin,
+        const std::uint32_t * const queueFamilyIndexEnd,
+        const ImageLayout initialLayout_
+    ) noexcept
         : VkImageCreateInfo {
             .sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO,
             .pNext = nullptr,

@@ -17,7 +17,9 @@ inline kF::GPU::ImageModel kF::GPU::ImageModel::MakeSingleLayer2D(
             .height = extent.height,
             .depth = 1
         },
-        1, 1, SampleCountFlags::X1,
+        1,
+        1,
+        SampleCountFlags::X1,
         tiling,
         customFlags,
         SharingMode::Exclusive,
