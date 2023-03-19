@@ -39,7 +39,7 @@ GPU::MemoryAllocator::MemoryAllocator(void) noexcept
 }
 
 void GPU::MemoryAllocator::allocate(const MemoryAllocationModel * const modelFrom, const MemoryAllocationModel * const modelTo,
-        MemoryAllocationHandle * const allocationFrom, MemoryAllocationHandle * const allocationTo) noexcept
+        MemoryAllocationHandle * const allocationFrom, [[maybe_unused]] MemoryAllocationHandle * const allocationTo) noexcept
 {
     kFAssert(std::distance(modelFrom, modelTo) == std::distance(allocationFrom, allocationTo),
         "GPU::MemoryAllocator::allocate: Mismatching model count and allocation count");
