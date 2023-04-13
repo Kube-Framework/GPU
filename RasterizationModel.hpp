@@ -20,8 +20,8 @@ struct kF::GPU::RasterizationModel : public VkPipelineRasterizationStateCreateIn
 
     /** @brief Initialize constructor */
     RasterizationModel(const PolygonMode polygonMode_,
-            const CullModeFlags cullMode_,
-            const FrontFace frontFace_,
+            const CullModeFlags cullMode_ = CullModeFlags::None,
+            const FrontFace frontFace_ = FrontFace::Clockwise,
             const bool depthBiasEnable_ = false, const float depthBiasConstantFactor_ = 0.0f,
             const float depthBiasClamp_ = 0.0f, const float depthBiasSlopeFactor_ = 0.0f,
             const bool depthClampEnable_ = false,
