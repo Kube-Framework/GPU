@@ -14,6 +14,7 @@
 # pragma GCC diagnostic ignored "-Wconversion"
 #endif
 
+#include <cstdio> // Required in GCC 13
 #include <vk_mem_alloc.h>
 
 #if KUBE_COMPILER_GCC
