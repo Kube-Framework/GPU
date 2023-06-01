@@ -26,9 +26,9 @@ public:
     /** @brief Cache of a custom image within a frame */
     struct alignas_half_cacheline ImageCache
     {
-        Image image;
-        ImageView view;
-        MemoryAllocation memoryAllocation;
+        Image image {};
+        ImageView view {};
+        MemoryAllocation memoryAllocation {};
         Format format {};
     };
     static_assert_fit_half_cacheline(ImageCache);

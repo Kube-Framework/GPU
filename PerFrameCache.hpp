@@ -13,9 +13,6 @@ namespace kF::GPU
 {
     template<typename Type, kF::Core::StaticAllocatorRequirements Allocator>
     class PerFrameCache;
-
-    template<typename Type, kF::Core::StaticAllocatorRequirements Allocator>
-    class PerFrameCache2;
 }
 
 
@@ -28,6 +25,10 @@ public:
 
     /** @brief Constructor */
     inline PerFrameCache(void) noexcept = default;
+
+    /** @brief PerFrameCache is not copiable */
+    PerFrameCache(const PerFrameCache &other) noexcept = delete;
+    PerFrameCache &operator=(const PerFrameCache &other) noexcept = delete;
 
     /** @brief Resize default constructor */
     inline PerFrameCache(const FrameIndex count) noexcept { resize(count); }

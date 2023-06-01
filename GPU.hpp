@@ -35,6 +35,10 @@ public:
         /** @brief Destroy the global GPU */
         ~GlobalInstance(void) noexcept;
 
+        /** @brief GlobalInstance is not copiable */
+        GlobalInstance(const GlobalInstance &other) noexcept = delete;
+        GlobalInstance &operator=(const GlobalInstance &other) noexcept = delete;
+
         /** @brief Construct a global GPU using a backend window */
         GlobalInstance(BackendWindow * const window,
             FrameImageModels &&frameImageModels,
@@ -51,11 +55,15 @@ public:
         [[nodiscard]] const GPU &operator*(void) const noexcept { return *_instance; }
 
     private:
-        GPU *_instance { nullptr };
+        GPU *_instance {};
     };
 
     /** @brief Destruct the whole GPU tree */
     ~GPU(void) noexcept = default;
+
+    /** @brief GPU is not copiable */
+    GPU(const GPU &other) noexcept = delete;
+    GPU &operator=(const GPU &other) noexcept = delete;
 
 
     /** @brief Get the assigned backend window */
@@ -125,7 +133,7 @@ public:
 
 
 private:
-    BackendWindow *_window { nullptr };
+    BackendWindow *_window {};
     Instance _instance;
     Surface _surface {};
     PhysicalDevice _physicalDevice {};

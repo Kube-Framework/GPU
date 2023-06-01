@@ -55,7 +55,7 @@ public:
 
 
 private:
-    GPU *_parent { nullptr };
+    GPU *_parent {};
 
     using GPUObject::parent;
 };

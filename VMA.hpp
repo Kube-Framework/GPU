@@ -12,6 +12,7 @@
 # pragma GCC diagnostic ignored "-Wparentheses"
 # pragma GCC diagnostic ignored "-Wimplicit-fallthrough"
 # pragma GCC diagnostic ignored "-Wconversion"
+# pragma GCC diagnostic ignored "-Weffc++"
 #endif
 
 #include <cstdio> // Required in GCC 13

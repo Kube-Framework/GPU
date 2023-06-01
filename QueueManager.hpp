@@ -91,8 +91,8 @@ public:
     void retreiveQueuesHandlers(void) noexcept;
 
 private:
-    QueuesArray _array;
-    QueueCandidateMap _candidatesMap;
+    QueuesArray _array {};
+    QueueCandidateMap _candidatesMap {};
 
     /** @brief Retreive every family queue and indexes that the hardware is capable of */
     void retreiveFamilyQueueIndexes(void) noexcept;
