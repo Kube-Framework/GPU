@@ -131,4 +131,7 @@ kube_add_library(GPU
         Core
         VulkanCollection
         SDL2::SDL2
+
+    INCLUDES
+        ${SDL2_INCLUDE_DIR}/..
 )

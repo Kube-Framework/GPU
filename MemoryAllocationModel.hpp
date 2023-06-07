@@ -9,7 +9,7 @@
 
 namespace kF::GPU
 {
-    struct MemoryAllocationModel;
+    class MemoryAllocationModel;
 
     template<typename Type>
     concept MemoryBindable = std::convertible_to<Type, BufferHandle> || std::convertible_to<Type, ImageHandle>;

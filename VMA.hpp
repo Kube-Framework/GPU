@@ -4,7 +4,7 @@
 
 #define VMA_VULKAN_VERSION 1002000
 
-#if KUBE_COMPILER_GCC
+#if KUBE_COMPILER_GCC | KUBE_COMPILER_CLANG
 # pragma GCC diagnostic push
 # pragma GCC diagnostic ignored "-Wold-style-cast"
 # pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -18,6 +18,6 @@
 #include <cstdio> // Required in GCC 13
 #include <vk_mem_alloc.h>
 
-#if KUBE_COMPILER_GCC
+#if KUBE_COMPILER_GCC | KUBE_COMPILER_CLANG
 # pragma GCC diagnostic pop
 #endif

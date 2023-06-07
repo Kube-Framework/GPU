@@ -26,10 +26,6 @@ public:
     /** @brief Constructor */
     inline PerFrameCache(void) noexcept = default;
 
-    /** @brief PerFrameCache is not copiable */
-    PerFrameCache(const PerFrameCache &other) noexcept = delete;
-    PerFrameCache &operator=(const PerFrameCache &other) noexcept = delete;
-
     /** @brief Resize default constructor */
     inline PerFrameCache(const FrameIndex count) noexcept { resize(count); }
 
@@ -39,6 +35,16 @@ public:
     /** @brief Resize initializer constructor */
     template<typename Initializer>
     inline PerFrameCache(const FrameIndex count, Initializer &&initializer) noexcept { resize(count, std::forward<Initializer>(initializer)); }
+
+    /** @brief PerFrameCache is not copiable */
+    PerFrameCache(const PerFrameCache &other) noexcept = delete;
+    PerFrameCache &operator=(const PerFrameCache &other) noexcept = delete;
+
+    /** @brief Move constructor */
+    PerFrameCache(PerFrameCache &&other) noexcept = default;
+
+    /** @brief Move assignment */
+    PerFrameCache &operator=(PerFrameCache &&other) noexcept = default;
 
 
     /** @brief Get frame count */
