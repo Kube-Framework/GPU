@@ -37,7 +37,7 @@ GPU::Instance::Instance(const Core::Version applicationVersion) noexcept
     VkInstanceCreateInfo instanceInfo {
         .sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
         .pNext = nullptr,
-        .flags = VkInstanceCreateFlags(),
+        .flags = KUBE_PLATFORM_APPLE ? VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR : VkInstanceCreateFlags(),
         .pApplicationInfo = &appInfo,
         .enabledLayerCount = static_cast<std::uint32_t>(layers.size()),
         .ppEnabledLayerNames = layers.data(),
@@ -116,5 +116,8 @@ GPU::Instance::Extensions GPU::Instance::getExtensions(BackendWindow *window) co
     extensions.resize(count);
     if (!::SDL_Vulkan_GetInstanceExtensions(window, &count, extensions.data()))
         kFAbort("GPU::Instance::getExtensions: Couldn't retreive instance extensions '", ::SDL_GetError(), '\'');
+    if constexpr (KUBE_PLATFORM_APPLE) {
+        extensions.push(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
+    }
     return extensions;
 }

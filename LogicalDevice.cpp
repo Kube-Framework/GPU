@@ -11,6 +11,10 @@
 #include "GPU.hpp"
 #include "LogicalDevice.hpp"
 
+#if KUBE_PLATFORM_APPLE
+# include <vulkan/vulkan_beta.h>
+#endif
+
 using namespace kF;
 
 GPU::LogicalDevice::~LogicalDevice(void) noexcept
@@ -88,17 +92,17 @@ GPU::LogicalDevice::DeviceFeaturesPtr GPU::LogicalDevice::getDeviceFeatures(void
 
     ::vkGetPhysicalDeviceFeatures2(parent().physicalDevice(), &deviceFeatures->features);
 
-    kFEnsure(deviceFeatures->indexingFeatures.descriptorBindingPartiallyBound,
-        "GPU::LogicalDevice: 'Partial descriptor binding bound' is not available for the selected device");
-
-    kFEnsure(deviceFeatures->indexingFeatures.runtimeDescriptorArray,
-        "GPU::LogicalDevice: 'Runtime descriptor array' is not available for the selected device");
-
     kFEnsure(deviceFeatures->indexingFeatures.descriptorBindingSampledImageUpdateAfterBind,
         "GPU::LogicalDevice: 'Descriptor binding sampled image update after bind' is not available for the selected device");
 
     kFEnsure(deviceFeatures->indexingFeatures.descriptorBindingUpdateUnusedWhilePending,
         "GPU::LogicalDevice: 'Descriptor binding update unused while pending' is not available for the selected device");
+
+    kFEnsure(deviceFeatures->indexingFeatures.descriptorBindingPartiallyBound,
+        "GPU::LogicalDevice: 'Partial descriptor binding bound' is not available for the selected device");
+
+    kFEnsure(deviceFeatures->indexingFeatures.runtimeDescriptorArray,
+        "GPU::LogicalDevice: 'Runtime descriptor array' is not available for the selected device");
 
     deviceFeatures->indexingFeatures = PhysicalDeviceDescriptorIndexingFeatures {
         .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES,
@@ -117,7 +121,14 @@ GPU::LogicalDevice::DeviceFeaturesPtr GPU::LogicalDevice::getDeviceFeatures(void
 
 GPU::LogicalDevice::Extensions GPU::LogicalDevice::getExtensions(void) const noexcept
 {
-    const Extensions extensions { VK_KHR_SWAPCHAIN_EXTENSION_NAME, VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME };
+    Extensions extensions {
+        VK_KHR_SWAPCHAIN_EXTENSION_NAME,
+        // VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME,
+        VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME
+#if KUBE_PLATFORM_APPLE
+        , VK_KHR_PORTABILITY_SUBSET_EXTENSION_NAME
+#endif
+    };
     Core::Vector<VkExtensionProperties> properties;
 
     if (const auto res = Internal::FillVkContainer(properties, &::vkEnumerateDeviceExtensionProperties, parent().physicalDevice(), nullptr); res != VK_SUCCESS)
