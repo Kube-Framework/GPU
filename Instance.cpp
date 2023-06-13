@@ -37,7 +37,7 @@ GPU::Instance::Instance(const Core::Version applicationVersion) noexcept
     VkInstanceCreateInfo instanceInfo {
         .sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
         .pNext = nullptr,
-        .flags = KUBE_PLATFORM_APPLE ? VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR : VkInstanceCreateFlags(),
+        .flags = KUBE_PLATFORM_APPLE ? VkInstanceCreateFlags(VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR) : VkInstanceCreateFlags(),
         .pApplicationInfo = &appInfo,
         .enabledLayerCount = static_cast<std::uint32_t>(layers.size()),
         .ppEnabledLayerNames = layers.data(),
