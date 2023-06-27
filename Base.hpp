@@ -19,7 +19,7 @@ struct SDL_Window;
 namespace kF::GPU
 {
     /** @brief Command pool manager allocator */
-    using GPUAllocator = Core::StaticSafeAllocator<"GPUAllocator">;
+    struct GPUAllocator : Core::StaticSafeAllocator<"GPUAllocator"> {};
 
     /** @brief Backend window structure forward declaration */
     using BackendWindow = SDL_Window;
