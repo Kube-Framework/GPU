@@ -27,7 +27,7 @@ GPU::Surface::Surface(void) noexcept
 
 GPU::SurfaceFormat GPU::Surface::getSurfaceFormat(void) const noexcept
 {
-    Core::Vector<SurfaceFormat> formats;
+    Core::Vector<SurfaceFormat, GPUAllocator> formats;
 
     if (const auto res = Internal::FillVkContainer(formats, &::vkGetPhysicalDeviceSurfaceFormatsKHR, parent().physicalDevice(), handle()); res != VK_SUCCESS || formats.empty())
         kFAbort("GPU::Surface::surfaceFormat: Couldn't retreive physical device surface format '", ErrorMessage(res), '\'');
@@ -42,7 +42,7 @@ GPU::SurfaceFormat GPU::Surface::getSurfaceFormat(void) const noexcept
 
 GPU::PresentMode GPU::Surface::getPresentMode(void) const noexcept
 {
-    Core::Vector<VkPresentModeKHR> modes;
+    Core::Vector<VkPresentModeKHR, GPUAllocator> modes;
 
     if (const auto res = Internal::FillVkContainer(modes, &::vkGetPhysicalDeviceSurfacePresentModesKHR, parent().physicalDevice(), handle()); res != VK_SUCCESS)
         kFAbort("GPU::Surface::getPresentMode: Couldn't retreive physical device present modes");
@@ -50,8 +50,13 @@ GPU::PresentMode GPU::Surface::getPresentMode(void) const noexcept
         if (static_cast<PresentMode>(mode) == PresentMode::MailboxKhr)
             return static_cast<PresentMode>(mode);
     }
-    kFError("[GPU] PresentMode::Mailbox is not available, using PresentMode::Fifo");
-    return PresentMode::FifoKhr;
+    for (const auto &mode : modes) {
+        if (static_cast<PresentMode>(mode) == PresentMode::FifoKhr)
+        kFError("[GPU] PresentMode::MailboxKhr is not available, using PresentMode::FifoKhr");
+            return static_cast<PresentMode>(mode);
+    }
+    kFError("[GPU] Neither PresentMode::MailboxKhr nor PresentMode::FifoKhr are available, using PresentMode::Immediate");
+    return PresentMode::ImmediateKhr;
 }
 
 GPU::SurfaceCapabilities GPU::Surface::getSurfaceCapabilities(void) const noexcept
