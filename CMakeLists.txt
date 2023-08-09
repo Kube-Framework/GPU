@@ -128,7 +128,7 @@ kube_add_library(GPU
         VMA.hpp
 
     LIBRARIES
-        Core
+        IO
         VulkanCollection
         SDL2::SDL2
 
