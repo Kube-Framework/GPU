@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Base.hpp"
+#include "PushConstantRange.hpp"
 
 namespace kF::GPU
 {

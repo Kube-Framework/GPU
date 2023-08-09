@@ -129,9 +129,6 @@ namespace kF::GPU
     /** @brief Descriptor set handle */
     using DescriptorSetHandle = VkDescriptorSet;
 
-    /** @brief Push constant range */
-    using PushConstantRange = VkPushConstantRange;
-
 
     /** @brief Render pass handle */
     using RenderPassHandle = VkRenderPass;
