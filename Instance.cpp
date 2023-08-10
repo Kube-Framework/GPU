@@ -27,7 +27,7 @@ GPU::Instance::Instance(const Core::Version applicationVersion) noexcept
     auto extensions = getExtensions(parent().backendWindow());
     auto layers = getLayers();
 #if KUBE_DEBUG_BUILD
-    kFInfoRaw("[GPU] Extensions:");
+    kFInfoRaw("[GPU] Extensions: ");
     bool first = true;
     for (const auto &extension : extensions) {
         if (!first)
@@ -37,7 +37,7 @@ GPU::Instance::Instance(const Core::Version applicationVersion) noexcept
         kFInfoRaw(extension);
     }
     kFInfo();
-    kFInfoRaw("[GPU] Layers:");
+    kFInfoRaw("[GPU] Layers: ");
     first = true;
     for (const auto &layer : layers) {
         if (!first)

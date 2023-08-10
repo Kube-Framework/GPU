@@ -77,6 +77,7 @@ GPU::LogicalDevice::LogicalDevice(void) noexcept
 
 GPU::LogicalDevice::DeviceFeaturesPtr GPU::LogicalDevice::getDeviceFeatures(void) const noexcept
 {
+    // Query features
     auto deviceFeatures = DeviceFeaturesPtr::Make(DeviceFeatures {
         .extensions = getExtensions(),
         .indexingFeatures = PhysicalDeviceDescriptorIndexingFeatures {
@@ -85,13 +86,17 @@ GPU::LogicalDevice::DeviceFeaturesPtr GPU::LogicalDevice::getDeviceFeatures(void
         },
         .features = PhysicalDeviceFeatures2 {
             .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2,
-            .pNext = nullptr
+            .pNext = nullptr,
         }
     });
     deviceFeatures->features.pNext = &deviceFeatures->indexingFeatures;
-
     ::vkGetPhysicalDeviceFeatures2(parent().physicalDevice(), &deviceFeatures->features);
 
+    // Device features
+    deviceFeatures->features.features = PhysicalDeviceFeatures {
+    };
+
+    // Indexing features
     kFEnsure(deviceFeatures->indexingFeatures.descriptorBindingSampledImageUpdateAfterBind,
         "GPU::LogicalDevice: 'Descriptor binding sampled image update after bind' is not available for the selected device");
 
@@ -103,7 +108,6 @@ GPU::LogicalDevice::DeviceFeaturesPtr GPU::LogicalDevice::getDeviceFeatures(void
 
     kFEnsure(deviceFeatures->indexingFeatures.runtimeDescriptorArray,
         "GPU::LogicalDevice: 'Runtime descriptor array' is not available for the selected device");
-
     deviceFeatures->indexingFeatures = PhysicalDeviceDescriptorIndexingFeatures {
         .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES,
         .pNext = nullptr,
