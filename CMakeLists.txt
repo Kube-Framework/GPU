@@ -93,6 +93,7 @@ kube_add_library(GPU
         PipelineLayout.cpp
         PipelineLayout.hpp
         PipelineLayoutModel.hpp
+        PushConstantRange.hpp
         QueueManager.cpp
         QueueManager.hpp
         RasterizationModel.hpp
@@ -128,7 +129,7 @@ kube_add_library(GPU
         VMA.hpp
 
     LIBRARIES
-        Core
+        IO
         VulkanCollection
         SDL2::SDL2
 

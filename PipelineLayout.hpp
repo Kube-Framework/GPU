@@ -18,8 +18,10 @@ class kF::GPU::PipelineLayout : public Handle<PipelineLayoutHandle>
 {
 public:
     /** @brief Initializer list constructor */
-    [[nodiscard]] static inline PipelineLayout Make(const std::initializer_list<DescriptorSetLayoutHandle> &setLayouts,
-            const std::initializer_list<PushConstantRange> &pushConstants) noexcept
+    [[nodiscard]] static inline PipelineLayout Make(
+            const std::initializer_list<DescriptorSetLayoutHandle> &setLayouts,
+            const std::initializer_list<PushConstantRange> &pushConstants
+        ) noexcept
         { return PipelineLayout(PipelineLayoutModel(setLayouts.begin(), setLayouts.end(), pushConstants.begin(), pushConstants.end())); }
 
     /** @brief Initializer list constructor (DescriptorSetLayoutHandle only) */

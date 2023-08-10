@@ -22,8 +22,11 @@ public:
     using BinaryCode = Core::IteratorRange<const std::uint8_t *>;
 
 
-    /** @brief Construct a shader from binary code and an optional path */
-    Shader(const BinaryCode &binary, const std::string_view &path = std::string_view {}) noexcept;
+    /** @brief Construct a shader from file or resource system */
+    Shader(const std::string_view &path) noexcept;
+
+    /** @brief Construct a shader from binary code (path is used for error print) */
+    Shader(const BinaryCode &binary, const std::string_view &path) noexcept;
 
     /** @brief Move constructor */
     Shader(Shader &&other) noexcept = default;

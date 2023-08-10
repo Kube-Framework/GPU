@@ -6,6 +6,7 @@
 #include <fstream>
 
 #include <Kube/Core/Abort.hpp>
+#include <Kube/IO/File.hpp>
 
 #include "GPU.hpp"
 #include "Shader.hpp"
@@ -18,10 +19,15 @@ GPU::Shader::~Shader(void) noexcept
         ::vkDestroyShaderModule(parent().logicalDevice(), handle(), nullptr);
 }
 
+GPU::Shader::Shader(const std::string_view &path) noexcept
+    : Shader(IO::File(path).readAll<Core::Vector<std::uint8_t, IO::IOAllocator>>(), path)
+{
+}
+
 GPU::Shader::Shader(const BinaryCode &binary, const std::string_view &path) noexcept
 {
     kFEnsure(!binary.empty(),
-        "UI::Shader: Empty binary code of shader '", path, '\'');
+        "GPU::Shader: Empty binary code of shader '", path, '\'');
     const VkShaderModuleCreateInfo shaderModuleInfo {
         .sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO,
         .pNext = nullptr,
