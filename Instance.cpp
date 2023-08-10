@@ -23,30 +23,9 @@ GPU::Instance::~Instance(void) noexcept
 
 GPU::Instance::Instance(const Core::Version applicationVersion) noexcept
 {
-    auto layers = getLayers();
+    // Query extensions & layers
     auto extensions = getExtensions(parent().backendWindow());
-    VkApplicationInfo appInfo {
-        .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
-        .pNext = nullptr,
-        .pApplicationName = ::SDL_GetWindowTitle(parent().backendWindow()),
-        .applicationVersion = static_cast<std::uint32_t>(VK_MAKE_VERSION(applicationVersion.major, applicationVersion.minor, applicationVersion.patch)),
-        .pEngineName = "Kube",
-        .engineVersion = static_cast<std::uint32_t>(VK_MAKE_VERSION(Core::KubeVersion.major, Core::KubeVersion.minor, Core::KubeVersion.patch)),
-        .apiVersion = VK_API_VERSION_1_1
-    };
-    VkInstanceCreateInfo instanceInfo {
-        .sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
-        .pNext = nullptr,
-        .flags = KUBE_PLATFORM_APPLE ? VkInstanceCreateFlags(VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR) : VkInstanceCreateFlags(),
-        .pApplicationInfo = &appInfo,
-        .enabledLayerCount = static_cast<std::uint32_t>(layers.size()),
-        .ppEnabledLayerNames = layers.data(),
-        .enabledExtensionCount = static_cast<std::uint32_t>(extensions.size()),
-        .ppEnabledExtensionNames = extensions.data()
-    };
-
-    if (const auto res = ::vkCreateInstance(&instanceInfo, nullptr, &handle()); res != VK_SUCCESS)
-        kFAbort("GPU::Instance:: Couldn't create instance '", ErrorMessage(res), '\'');
+    auto layers = getLayers();
 #if KUBE_DEBUG_BUILD
     kFInfoRaw("[GPU] Extensions:");
     bool first = true;
@@ -69,6 +48,30 @@ GPU::Instance::Instance(const Core::Version applicationVersion) noexcept
     }
     kFInfo();
 #endif
+
+    // Create instance
+    VkApplicationInfo appInfo {
+        .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
+        .pNext = nullptr,
+        .pApplicationName = ::SDL_GetWindowTitle(parent().backendWindow()),
+        .applicationVersion = static_cast<std::uint32_t>(VK_MAKE_VERSION(applicationVersion.major, applicationVersion.minor, applicationVersion.patch)),
+        .pEngineName = "Kube",
+        .engineVersion = static_cast<std::uint32_t>(VK_MAKE_VERSION(Core::KubeVersion.major, Core::KubeVersion.minor, Core::KubeVersion.patch)),
+        .apiVersion = VK_API_VERSION_1_1
+    };
+    VkInstanceCreateInfo instanceInfo {
+        .sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
+        .pNext = nullptr,
+        .flags = KUBE_PLATFORM_APPLE ? VkInstanceCreateFlags(VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR) : VkInstanceCreateFlags(),
+        .pApplicationInfo = &appInfo,
+        .enabledLayerCount = static_cast<std::uint32_t>(layers.size()),
+        .ppEnabledLayerNames = layers.data(),
+        .enabledExtensionCount = static_cast<std::uint32_t>(extensions.size()),
+        .ppEnabledExtensionNames = extensions.data()
+    };
+
+    if (const auto res = ::vkCreateInstance(&instanceInfo, nullptr, &handle()); res != VK_SUCCESS)
+        kFAbort("GPU::Instance:: Couldn't create instance '", ErrorMessage(res), '\'');
 }
 
 GPU::Instance::Layers GPU::Instance::getLayers(void) const noexcept
