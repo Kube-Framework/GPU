@@ -45,4 +45,8 @@ public:
 
     /** @brief Move constructor */
     TimelineSemaphore &operator=(TimelineSemaphore &&other) noexcept = default;
+
+
+    /** @brief Signal the semaphore */
+    void signal(const std::uint64_t value) noexcept;
 };

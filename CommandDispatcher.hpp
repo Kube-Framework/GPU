@@ -58,56 +58,66 @@ public:
 
 
     /** @brief Get the frame available semaphore of the current frame */
-    [[nodiscard]] SemaphoreHandle currentFrameAvailableSemaphore(void) const noexcept
+    [[nodiscard]] inline SemaphoreHandle currentFrameAvailableSemaphore(void) const noexcept
         { return _cachedFrames.current().frameAvailable.value().handle(); }
 
 
     /** @brief Dispatch a single command of a given queue with fence synchronization
      *  @note Only thread safe if the underlying hardward queue is not already submitting */
-    void dispatch(const QueueType queueType, const SubmitInfo &submit, const FenceHandle fence = NullHandle) noexcept
+    inline void dispatch(const QueueType queueType, const SubmitInfo &submit, const FenceHandle fence = NullHandle) noexcept
         { dispatch(queueType, &submit, &submit + 1, fence); }
 
     /** @brief Dispatch commands of a given queue with fence synchronization
      *  @note Only thread safe if the underlying hardward queue is not already submitting */
-    void dispatch(const QueueType queueType, const SubmitInfo * const submitBegin, const SubmitInfo * const submitEnd,
-            const FenceHandle fence = NullHandle) noexcept;
+    void dispatch(
+        const QueueType queueType,
+        const SubmitInfo * const submitBegin,
+        const SubmitInfo * const submitEnd,
+        const FenceHandle fence = NullHandle
+    ) noexcept;
 
     /** @brief Dispatch commands of a given queue with fence synchronization using initializer-list
      *  @note Only thread safe if the underlying hardward queue is not already submitting */
-    void dispatch(const QueueType queueType, const std::initializer_list<SubmitInfo> &submits, const FenceHandle fence = NullHandle) noexcept
+    inline void dispatch(const QueueType queueType, const std::initializer_list<SubmitInfo> &submits, const FenceHandle fence = NullHandle) noexcept
         { dispatch(queueType, submits.begin(), submits.end(), fence); }
 
     /** @brief Dispatch commands of a given queue with fence synchronization using a single inlined submit info as initializer-lists
      *  @note Only thread safe if the underlying hardward queue is not already submitting */
-    void dispatch(const QueueType queueType,
-            const std::initializer_list<CommandHandle> &commands,
-            const std::initializer_list<SemaphoreHandle> &waits,
-            const std::initializer_list<PipelineStageFlags> &waitStages,
-            const std::initializer_list<SemaphoreHandle> &signals = {},
-            const FenceHandle fence = NullHandle) noexcept
+    inline void dispatch(
+        const QueueType queueType,
+        const std::initializer_list<CommandHandle> &commands,
+        const std::initializer_list<SemaphoreHandle> &waits,
+        const std::initializer_list<PipelineStageFlags> &waitStages,
+        const std::initializer_list<SemaphoreHandle> &signals = {},
+        const FenceHandle fence = NullHandle
+    ) noexcept
         { dispatch(queueType, SubmitInfo(commands.begin(), commands.end(), waits.begin(), waits.end(), waitStages.begin(), waitStages.end(), signals.begin(), signals.end()), fence); }
 
 
     /** @brief Add single semaphore and fence dependencies to presentation of current frame
      *  @note Thread safe for different queue type calls */
-    void addPresentDependencies(const QueueType queueType, const SemaphoreHandle semaphore, const FenceHandle fence) noexcept
+    inline void addPresentDependencies(const QueueType queueType, const SemaphoreHandle semaphore, const FenceHandle fence) noexcept
         { addPresentDependencies(queueType, &semaphore, &semaphore + 1, &fence, &fence + 1); }
 
     /** @brief Add single semaphore to presentation of current frame
      *  @note Thread safe for different queue type calls */
-    void addPresentDependencies(const QueueType queueType, const SemaphoreHandle semaphore) noexcept
+    inline void addPresentDependencies(const QueueType queueType, const SemaphoreHandle semaphore) noexcept
         { _cachedFrames.current().perQueueSemaphoreCache[static_cast<std::size_t>(queueType)].push(semaphore); }
 
     /** @brief Add single fence to presentation of current frame
      *  @note Thread safe for different queue type calls */
-    void addPresentDependencies(const QueueType queueType, const FenceHandle fence) noexcept
+    inline void addPresentDependencies(const QueueType queueType, const FenceHandle fence) noexcept
         { _cachedFrames.current().perQueueFenceCache[static_cast<std::size_t>(queueType)].push(fence); }
 
     /** @brief Add dependencies to presentation of current frame
      *  @note Thread safe for different queue type calls */
-    void addPresentDependencies(const QueueType queueType,
-            const SemaphoreHandle * const semaphoreBegin, const SemaphoreHandle *semaphoreEnd,
-            const FenceHandle * const fenceBegin, const FenceHandle *fenceEnd) noexcept;
+    void addPresentDependencies(
+        const QueueType queueType,
+        const SemaphoreHandle * const semaphoreBegin,
+        const SemaphoreHandle *semaphoreEnd,
+        const FenceHandle * const fenceBegin,
+        const FenceHandle *fenceEnd
+    ) noexcept;
 
 
     /** @brief Try to acquire the next frame */

@@ -619,8 +619,7 @@ namespace kF::GPU
 {
     /** @brief Describes all supported queue types */
     enum class QueueType : std::uint32_t {
-        Graphics
-        = 0u,
+        Graphics = 0u,
         Compute,
         Transfer,
         Present,

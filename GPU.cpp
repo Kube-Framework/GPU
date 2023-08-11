@@ -42,6 +42,7 @@ void GPU::GPU::dispatchFrameAcquired(const FrameIndex frameIndex) noexcept
 
 void GPU::GPU::dispatchViewSizeChanged(void) noexcept
 {
+    kFInfo("[GPU] DispatchViewSizeChanged");
     _logicalDevice.waitIdle();
     _swapchain.onViewSizeChanged();
     _frameImageManager.onViewSizeChanged();

@@ -77,5 +77,6 @@ GPU::Swapchain::SwapchainImages GPU::Swapchain::queryImages(void) const noexcept
 
 void GPU::Swapchain::onViewSizeChanged(void) noexcept
 {
+    parent().logicalDevice().waitIdle();
     createSwapchain(handle());
 }

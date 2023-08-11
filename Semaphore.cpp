@@ -37,10 +37,10 @@ GPU::TimelineSemaphore::~TimelineSemaphore(void) noexcept
 GPU::TimelineSemaphore::TimelineSemaphore(const std::uint64_t initialValue) noexcept
 {
     const VkSemaphoreTypeCreateInfo semaphoreType {
-        /*VkStructureType    */.sType = VK_STRUCTURE_TYPE_SEMAPHORE_TYPE_CREATE_INFO,
-        /*const void*        */.pNext = nullptr,
-        /*VkSemaphoreType    */.semaphoreType = VK_SEMAPHORE_TYPE_TIMELINE,
-        /*uint64_t           */.initialValue = initialValue,
+        .sType = VK_STRUCTURE_TYPE_SEMAPHORE_TYPE_CREATE_INFO,
+        .pNext = nullptr,
+        .semaphoreType = VK_SEMAPHORE_TYPE_TIMELINE,
+        .initialValue = initialValue,
     };
     const VkSemaphoreCreateInfo semaphoreInfo {
         .sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO,
@@ -50,4 +50,15 @@ GPU::TimelineSemaphore::TimelineSemaphore(const std::uint64_t initialValue) noex
 
     if (const auto res = ::vkCreateSemaphore(parent().logicalDevice(), &semaphoreInfo, nullptr, &handle()); res != VK_SUCCESS)
         kFAbort("GPU::TimelineSemaphore: Couldn't create timeline semaphore '", ErrorMessage(res), '\'');
+}
+
+void GPU::TimelineSemaphore::signal(const std::uint64_t value) noexcept
+{
+    const VkSemaphoreSignalInfo semaphoreSignalInfo {
+        .sType = VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO,
+        .semaphore = *this,
+        .value = value,
+    };
+    if (const auto res = ::vkSignalSemaphore(parent().logicalDevice(), &semaphoreSignalInfo); res != VK_SUCCESS)
+        kFAbort("GPU::TimelineSemaphore: Couldn't signal semaphore '", ErrorMessage(res), '\'');
 }

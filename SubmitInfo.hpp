@@ -21,10 +21,16 @@ struct kF::GPU::SubmitInfo : public VkSubmitInfo
     ~SubmitInfo(void) noexcept = default;
 
     /** @brief Initialize constructor */
-    SubmitInfo(const CommandHandle * const commandBegin, const CommandHandle * const commandEnd,
-            const SemaphoreHandle * const waitBegin, const SemaphoreHandle * const waitEnd,
-            const PipelineStageFlags * const waitStageBegin, [[maybe_unused]] const PipelineStageFlags * const waitStageEnd,
-            const SemaphoreHandle * const signalBegin = nullptr, const SemaphoreHandle * const signalEnd = nullptr) noexcept
+    SubmitInfo(
+        const CommandHandle * const commandBegin,
+        const CommandHandle * const commandEnd,
+        const SemaphoreHandle * const waitBegin,
+        const SemaphoreHandle * const waitEnd,
+        const PipelineStageFlags * const waitStageBegin,
+        [[maybe_unused]] const PipelineStageFlags * const waitStageEnd,
+        const SemaphoreHandle * const signalBegin = nullptr,
+        const SemaphoreHandle * const signalEnd = nullptr
+    ) noexcept
         : VkSubmitInfo {
             .sType = VK_STRUCTURE_TYPE_SUBMIT_INFO,
             .pNext = nullptr,

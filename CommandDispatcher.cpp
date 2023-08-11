@@ -44,7 +44,7 @@ bool GPU::CommandDispatcher::tryAcquireNextFrame(void) noexcept
 
     // Try to retreive the next frame handle
     std::uint32_t retreivedFrame;
-    const auto res = ::vkAcquireNextImageKHR(
+    auto res = ::vkAcquireNextImageKHR(
         parent().logicalDevice(),
         parent().swapchain(),
         0, // Do not wait
@@ -52,27 +52,43 @@ bool GPU::CommandDispatcher::tryAcquireNextFrame(void) noexcept
         NullHandle, // No fence
         &retreivedFrame
     );
-    if (res != VK_SUCCESS) { // Check if the frame has been acquired or not
-        _availableSemaphores.push(std::move(semaphore)); // If not, store the free semaphore for later use
-        if ((res == VK_NOT_READY) | (res == VK_TIMEOUT) | (res == VK_ERROR_OUT_OF_DATE_KHR) | (res == VK_SUBOPTIMAL_KHR))
-            return false;
-        else
-            kFAbort("GPU::CommandDispatcher::tryAcquireNextFrame: Couldn't acquire next image '", ErrorMessage(res), '\'');
+
+    // Driver indicated that swapchain is either suboptimal or invalid
+    if (res == VK_SUBOPTIMAL_KHR || res == VK_ERROR_OUT_OF_DATE_KHR) {
+        // Cleanup dirty semaphore
+        if (res == VK_SUBOPTIMAL_KHR)
+            dispatch(QueueType::Graphics, {}, { semaphore }, { PipelineStageFlags::BottomOfPipe });
+        parent().dispatchViewSizeChanged();
+        res = ::vkAcquireNextImageKHR(
+            parent().logicalDevice(),
+            parent().swapchain(),
+            0, // Do not wait
+            semaphore,
+            NullHandle, // No fence
+            &retreivedFrame
+        );
+    }
+
+    // The acquisition failed two times, wait then return
+    if (res != VK_SUCCESS) {
+        // Recycle the semaphore for later use
+        _availableSemaphores.push(std::move(semaphore));
+        // Wait queue idle
+        parent().queueManager().waitQueueIdle(QueueType::Graphics);
+        return false;
     }
 
     // Update the new current frame
     _cachedFrames.setCurrentFrame(retreivedFrame);
     auto &cache = _cachedFrames.current();
-
     // Wait until the frame index finished all computes
     if (!cache.fenceCache.empty())
         Fence::Wait(cache.fenceCache.begin(), cache.fenceCache.end());
 
     // Set frame 'available' semaphore then clear old frame data
-    auto &cachedSemaphore = cache.frameAvailable;
-    if (cachedSemaphore.has_value()) [[likely]]
-        _availableSemaphores.push(std::move(cachedSemaphore.value()));
-    cachedSemaphore.emplace(std::move(semaphore));
+    if (cache.frameAvailable.has_value()) [[likely]]
+        _availableSemaphores.push(std::move(cache.frameAvailable.value()));
+    cache.frameAvailable.emplace(std::move(semaphore));
     UnrollClear(cache.perQueueSemaphoreCache.data(), PerQueueIndexSequence);
     UnrollClear(cache.perQueueFenceCache.data(), PerQueueIndexSequence);
     cache.semaphoreCache.clear();
