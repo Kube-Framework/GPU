@@ -40,8 +40,11 @@ GPU::DescriptorSetHandle GPU::DescriptorPool::allocate(const DescriptorSetLayout
 }
 
 void GPU::DescriptorPool::allocate(
-        const DescriptorSetLayoutHandle * const layoutBegin, const DescriptorSetLayoutHandle * const layoutEnd,
-        DescriptorSetHandle * const descriptorSetBegin, [[maybe_unused]] DescriptorSetHandle * const descriptorSetEnd) noexcept
+    const DescriptorSetLayoutHandle * const layoutBegin,
+    const DescriptorSetLayoutHandle * const layoutEnd,
+    DescriptorSetHandle * const descriptorSetBegin,
+    [[maybe_unused]] DescriptorSetHandle * const descriptorSetEnd
+) noexcept
 {
     const auto count = std::distance(layoutBegin, layoutEnd);
     kFAssert(count == std::distance(descriptorSetBegin, descriptorSetEnd),

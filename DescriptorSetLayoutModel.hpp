@@ -20,8 +20,11 @@ struct kF::GPU::DescriptorSetLayoutModel : public VkDescriptorSetLayoutCreateInf
     ~DescriptorSetLayoutModel(void) noexcept = default;
 
     /** @brief Initialize constructor */
-    DescriptorSetLayoutModel(const DescriptorSetLayoutCreateFlags flags_,
-            const DescriptorSetLayoutBinding * const bindingBegin, const DescriptorSetLayoutBinding * const bindingEnd) noexcept
+    DescriptorSetLayoutModel(
+        const DescriptorSetLayoutCreateFlags flags_,
+        const DescriptorSetLayoutBinding * const bindingBegin,
+        const DescriptorSetLayoutBinding * const bindingEnd
+    ) noexcept
         : VkDescriptorSetLayoutCreateInfo {
             .sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO,
             .pNext = nullptr,

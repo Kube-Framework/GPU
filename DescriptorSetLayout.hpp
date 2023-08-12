@@ -18,15 +18,19 @@ class kF::GPU::DescriptorSetLayout : public Handle<DescriptorSetLayoutHandle>
 {
 public:
     /** @brief Initializer-list constructor */
-    [[nodiscard]] static inline DescriptorSetLayout Make(const DescriptorSetLayoutCreateFlags flags,
-            const std::initializer_list<DescriptorSetLayoutBinding> &bindings) noexcept
+    [[nodiscard]] static inline DescriptorSetLayout Make(
+        const DescriptorSetLayoutCreateFlags flags,
+        const std::initializer_list<DescriptorSetLayoutBinding> &bindings
+    ) noexcept
         { return DescriptorSetLayout(DescriptorSetLayoutModel(flags, bindings.begin(), bindings.end())); }
 
 
     /** @brief Initializer-list constructor */
-    [[nodiscard]] static DescriptorSetLayout Make(const DescriptorSetLayoutCreateFlags flags,
-            const std::initializer_list<DescriptorSetLayoutBinding> &bindings,
-            const std::initializer_list<DescriptorBindingFlags> &bindingFlags) noexcept;
+    [[nodiscard]] static DescriptorSetLayout Make(
+        const DescriptorSetLayoutCreateFlags flags,
+        const std::initializer_list<DescriptorSetLayoutBinding> &bindings,
+        const std::initializer_list<DescriptorBindingFlags> &bindingFlags
+    ) noexcept;
 
 
     /** @brief Destructor */

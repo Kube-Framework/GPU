@@ -19,7 +19,7 @@ struct kF::GPU::DescriptorBufferInfo : public VkDescriptorBufferInfo
     ~DescriptorBufferInfo(void) noexcept = default;
 
     /** @brief Initialize constructor */
-    DescriptorBufferInfo(const BufferHandle buffer_ = NullHandle, const BufferSize offset_ = 0u, const BufferSize range_ = 0u) noexcept
+    DescriptorBufferInfo(const BufferHandle buffer_ = NullHandle, const BufferSize offset_ = 0u, const BufferSize range_ = VK_WHOLE_SIZE) noexcept
         : VkDescriptorBufferInfo {
             .buffer = buffer_,
             .offset = offset_,

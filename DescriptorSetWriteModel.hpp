@@ -23,9 +23,15 @@ struct kF::GPU::DescriptorSetWriteModel : public VkWriteDescriptorSet
 
     /** @brief Initialize constructor */
     DescriptorSetWriteModel(
-            const DescriptorSetHandle dstSet_, const std::uint32_t dstBinding_, const std::uint32_t dstArrayElement_,
-            const std::uint32_t descriptorCount_, const DescriptorType descriptorType_,
-            const DescriptorImageInfo *pImageInfo_, const DescriptorBufferInfo *pBufferInfo_, const BufferViewHandle *pTexelBufferView_) noexcept
+        const DescriptorSetHandle dstSet_,
+        const std::uint32_t dstBinding_,
+        const std::uint32_t dstArrayElement_,
+        const std::uint32_t descriptorCount_,
+        const DescriptorType descriptorType_,
+        const DescriptorImageInfo *pImageInfo_,
+        const DescriptorBufferInfo *pBufferInfo_,
+        const BufferViewHandle *pTexelBufferView_
+    ) noexcept
         : VkWriteDescriptorSet {
             .sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET,
             .pNext = nullptr,
@@ -41,8 +47,13 @@ struct kF::GPU::DescriptorSetWriteModel : public VkWriteDescriptorSet
 
     /** @brief Initialize constructor (image only) */
     DescriptorSetWriteModel(
-            const DescriptorSetHandle dstSet_, const std::uint32_t dstBinding_, const std::uint32_t dstArrayElement_,
-            const DescriptorType descriptorType_, const DescriptorImageInfo *imageBegin, const DescriptorImageInfo *imageEnd) noexcept
+        const DescriptorSetHandle dstSet_,
+        const std::uint32_t dstBinding_,
+        const std::uint32_t dstArrayElement_,
+        const DescriptorType descriptorType_,
+        const DescriptorImageInfo *imageBegin,
+        const DescriptorImageInfo *imageEnd
+    ) noexcept
         : DescriptorSetWriteModel(
             dstSet_, dstBinding_, dstArrayElement_,
             Core::Distance<std::uint32_t>(imageBegin, imageEnd),
@@ -54,8 +65,13 @@ struct kF::GPU::DescriptorSetWriteModel : public VkWriteDescriptorSet
 
     /** @brief Initialize constructor (buffer only) */
     DescriptorSetWriteModel(
-            const DescriptorSetHandle dstSet_, const std::uint32_t dstBinding_, const std::uint32_t dstArrayElement_,
-            const DescriptorType descriptorType_, const DescriptorBufferInfo *bufferBegin, const DescriptorBufferInfo *bufferEnd) noexcept
+        const DescriptorSetHandle dstSet_,
+        const std::uint32_t dstBinding_,
+        const std::uint32_t dstArrayElement_,
+        const DescriptorType descriptorType_,
+        const DescriptorBufferInfo *bufferBegin,
+        const DescriptorBufferInfo *bufferEnd
+    ) noexcept
         : DescriptorSetWriteModel(
             dstSet_, dstBinding_, dstArrayElement_,
             Core::Distance<std::uint32_t>(bufferBegin, bufferEnd),
@@ -67,8 +83,13 @@ struct kF::GPU::DescriptorSetWriteModel : public VkWriteDescriptorSet
 
     /** @brief Initialize constructor (texel only) */
     DescriptorSetWriteModel(
-            const DescriptorSetHandle dstSet_, const std::uint32_t dstBinding_, const std::uint32_t dstArrayElement_,
-            const DescriptorType descriptorType_, const BufferViewHandle *texelBufferBegin, const BufferViewHandle *texelBufferEnd) noexcept
+        const DescriptorSetHandle dstSet_,
+        const std::uint32_t dstBinding_,
+        const std::uint32_t dstArrayElement_,
+        const DescriptorType descriptorType_,
+        const BufferViewHandle *texelBufferBegin,
+        const BufferViewHandle *texelBufferEnd
+    ) noexcept
         : DescriptorSetWriteModel(
             dstSet_, dstBinding_, dstArrayElement_,
             Core::Distance<std::uint32_t>(texelBufferBegin, texelBufferEnd),

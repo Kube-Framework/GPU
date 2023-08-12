@@ -156,6 +156,12 @@ public:
         { ::vkCmdDrawIndexedIndirectCount(_command, buffer, bufferOffset, countBuffer, countBufferOffset, maxDrawCount, stride); }
 
 
+    /** @brief Set dynamic viewport
+     *  @note Graphic pipeline must be created with DynamicStage::Viewport */
+    inline void setViewport(const Viewport &viewport) const noexcept
+        { ::vkCmdSetViewport(_command, 0, 1, &viewport); }
+
+
     /** @brief Set dynamic scissor
      *  @note Graphic pipeline must be created with DynamicStage::Scissor */
     inline void setScissor(const Rect2D &scissor) const noexcept

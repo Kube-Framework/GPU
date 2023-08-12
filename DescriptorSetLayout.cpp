@@ -12,9 +12,10 @@
 using namespace kF;
 
 GPU::DescriptorSetLayout GPU::DescriptorSetLayout::Make(
-        const DescriptorSetLayoutCreateFlags flags,
-        const std::initializer_list<DescriptorSetLayoutBinding> &bindings,
-        const std::initializer_list<DescriptorBindingFlags> &bindingFlags) noexcept
+    const DescriptorSetLayoutCreateFlags flags,
+    const std::initializer_list<DescriptorSetLayoutBinding> &bindings,
+    const std::initializer_list<DescriptorBindingFlags> &bindingFlags
+) noexcept
 {
     const DescriptorSetLayoutBindingFlagsModel flagsModel(bindingFlags.begin(), bindingFlags.end());
     DescriptorSetLayoutModel model(flags, bindings.begin(), bindings.end());

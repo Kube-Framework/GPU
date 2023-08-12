@@ -20,15 +20,19 @@ struct kF::GPU::DescriptorPoolModel : public VkDescriptorPoolCreateInfo
     ~DescriptorPoolModel(void) noexcept = default;
 
     /** @brief Initialize constructor */
-    DescriptorPoolModel(const DescriptorPoolCreateFlags flags_, const std::uint32_t maxSets_,
-            const DescriptorPoolSize * const poolSizeBegin, const DescriptorPoolSize * const poolSizeEnd) noexcept
+    DescriptorPoolModel(
+        const DescriptorPoolCreateFlags flags_,
+        const std::uint32_t maxSets_,
+        const DescriptorPoolSize * const poolSizeBegin,
+        const DescriptorPoolSize * const poolSizeEnd
+    ) noexcept
         : VkDescriptorPoolCreateInfo {
             .sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO,
             .pNext = nullptr,
             .flags = ToFlags(flags_),
             .maxSets = maxSets_,
             .poolSizeCount = Core::Distance<std::uint32_t>(poolSizeBegin, poolSizeEnd),
-            .pPoolSizes = poolSizeBegin
+            .pPoolSizes = poolSizeBegin,
         } {}
 
 

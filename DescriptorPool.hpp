@@ -19,8 +19,11 @@ class kF::GPU::DescriptorPool : public Handle<VkDescriptorPool>
 {
 public:
     /** @brief Initializer list constructor */
-    [[nodiscard]] static inline DescriptorPool Make(const DescriptorPoolCreateFlags flags, const std::uint32_t maxSets,
-            const std::initializer_list<DescriptorPoolSize> &poolSizes) noexcept
+    [[nodiscard]] static inline DescriptorPool Make(
+        const DescriptorPoolCreateFlags flags,
+        const std::uint32_t maxSets,
+        const std::initializer_list<DescriptorPoolSize> &poolSizes
+    ) noexcept
         { return DescriptorPool(DescriptorPoolModel(flags, maxSets, poolSizes.begin(), poolSizes.end())); }
 
 
@@ -44,8 +47,12 @@ public:
     [[nodiscard]] DescriptorSetHandle allocate(const DescriptorSetLayoutHandle &layout) noexcept;
 
     /** @brief Allocate descriptor sets from descriptor set layouts */
-    void allocate(const DescriptorSetLayoutHandle * const layoutBengin, const DescriptorSetLayoutHandle * const layoutEnd,
-            DescriptorSetHandle * const descriptorSetBegin, DescriptorSetHandle * const descriptorSetEnd) noexcept;
+    void allocate(
+        const DescriptorSetLayoutHandle * const layoutBengin,
+        const DescriptorSetLayoutHandle * const layoutEnd,
+        DescriptorSetHandle * const descriptorSetBegin,
+        DescriptorSetHandle * const descriptorSetEnd
+    ) noexcept;
 
     /** @brief Deallocate a single descriptor set
      *  @note Only works for pools without FreeDescriptorSet flag */
