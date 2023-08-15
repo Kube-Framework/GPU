@@ -4,8 +4,11 @@
  */
 
 template<kF::GPU::MemoryBindable Bindable, std::input_iterator Iterator>
-inline kF::GPU::MemoryAllocation kF::GPU::MemoryAllocation::MakeStaging(const Bindable &toBind,
-        const Iterator dataBegin, const Iterator dataEnd) noexcept
+inline kF::GPU::MemoryAllocation kF::GPU::MemoryAllocation::MakeStaging(
+    const Bindable &toBind,
+    const Iterator dataBegin,
+    const Iterator dataEnd
+) noexcept
 {
     MemoryAllocation allocation(MemoryAllocationModel::MakeStaging(toBind));
 

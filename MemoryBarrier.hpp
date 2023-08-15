@@ -45,9 +45,15 @@ struct kF::GPU::BufferMemoryBarrier : public VkBufferMemoryBarrier
     ~BufferMemoryBarrier(void) noexcept = default;
 
     /** @brief Initialize constructor */
-    BufferMemoryBarrier(const AccessFlags source, const AccessFlags destination,
-            const std::uint32_t sourceQueueFamilyIndex, const std::uint32_t destinationQueueFamilyIndex,
-            const BufferHandle buffer_, const BufferSize offset_, const BufferSize size_) noexcept
+    BufferMemoryBarrier(
+        const AccessFlags source,
+        const AccessFlags destination,
+        const std::uint32_t sourceQueueFamilyIndex,
+        const std::uint32_t destinationQueueFamilyIndex,
+        const BufferHandle buffer_,
+        const BufferSize offset_,
+        const BufferSize size_
+    ) noexcept
         : VkBufferMemoryBarrier {
             .sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER,
             .pNext = nullptr,
@@ -76,10 +82,16 @@ struct kF::GPU::ImageMemoryBarrier : public VkImageMemoryBarrier
     ~ImageMemoryBarrier(void) noexcept = default;
 
     /** @brief Initialize constructor */
-    ImageMemoryBarrier(const AccessFlags source, const AccessFlags destination,
-            const ImageLayout oldLayout_, const ImageLayout newLayout_,
-            const std::uint32_t sourceQueueFamilyIndex, const std::uint32_t destinationQueueFamilyIndex,
-            const ImageHandle image_, const ImageSubresourceRange &subresourceRange_) noexcept
+    ImageMemoryBarrier(
+        const AccessFlags source,
+        const AccessFlags destination,
+        const ImageLayout oldLayout_,
+        const ImageLayout newLayout_,
+        const std::uint32_t sourceQueueFamilyIndex,
+        const std::uint32_t destinationQueueFamilyIndex,
+        const ImageHandle image_,
+        const ImageSubresourceRange &subresourceRange_
+    ) noexcept
         : VkImageMemoryBarrier {
             .sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER,
             .pNext = nullptr,

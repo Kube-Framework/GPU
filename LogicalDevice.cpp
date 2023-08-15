@@ -97,24 +97,22 @@ GPU::LogicalDevice::DeviceFeaturesPtr GPU::LogicalDevice::getDeviceFeatures(void
     };
 
     // Indexing features
+    kFEnsure(deviceFeatures->indexingFeatures.shaderSampledImageArrayNonUniformIndexing,
+        "GPU::LogicalDevice: 'Shader sampled image array non uniform indexing' is not available for the selected device");
     kFEnsure(deviceFeatures->indexingFeatures.descriptorBindingSampledImageUpdateAfterBind,
         "GPU::LogicalDevice: 'Descriptor binding sampled image update after bind' is not available for the selected device");
-
     kFEnsure(deviceFeatures->indexingFeatures.descriptorBindingUpdateUnusedWhilePending,
         "GPU::LogicalDevice: 'Descriptor binding update unused while pending' is not available for the selected device");
-
     kFEnsure(deviceFeatures->indexingFeatures.descriptorBindingPartiallyBound,
         "GPU::LogicalDevice: 'Partial descriptor binding bound' is not available for the selected device");
 
-    kFEnsure(deviceFeatures->indexingFeatures.runtimeDescriptorArray,
-        "GPU::LogicalDevice: 'Runtime descriptor array' is not available for the selected device");
     deviceFeatures->indexingFeatures = PhysicalDeviceDescriptorIndexingFeatures {
         .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES,
         .pNext = nullptr,
+        .shaderSampledImageArrayNonUniformIndexing = true,
         .descriptorBindingSampledImageUpdateAfterBind = true,
         .descriptorBindingUpdateUnusedWhilePending = true,
         .descriptorBindingPartiallyBound = true,
-        .runtimeDescriptorArray = true
     };
 
     deviceFeatures->features.features = PhysicalDeviceFeatures {

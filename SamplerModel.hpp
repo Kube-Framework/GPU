@@ -20,14 +20,22 @@ struct kF::GPU::SamplerModel : public VkSamplerCreateInfo
 
     /** @brief Initialize constructor */
     SamplerModel(const SamplerCreateFlags flags_,
-            const Filter magFilter_, const Filter minFilter_,
-            const SamplerMipmapMode mipmapMode_,
-            const SamplerAddressMode addressModeU_, const SamplerAddressMode addressModeV_, const SamplerAddressMode addressModeW_,
-            const bool anisotropyEnable_, const float maxAnisotropy_,
-            const bool compareEnable_, const CompareOp compareOp_,
-            const float mipLodBias_, const float minLod_, const float maxLod_,
-            const BorderColor borderColor_,
-            const bool unnormalizedCoordinates_) noexcept
+        const Filter magFilter_,
+        const Filter minFilter_,
+        const SamplerMipmapMode mipmapMode_,
+        const SamplerAddressMode addressModeU_,
+        const SamplerAddressMode addressModeV_,
+        const SamplerAddressMode addressModeW_,
+        const bool anisotropyEnable_,
+        const float maxAnisotropy_,
+        const bool compareEnable_,
+        const CompareOp compareOp_,
+        const float mipLodBias_,
+        const float minLod_,
+        const float maxLod_,
+        const BorderColor borderColor_,
+        const bool unnormalizedCoordinates_
+    ) noexcept
         : VkSamplerCreateInfo {
             .sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO,
             .pNext = nullptr,
