@@ -40,10 +40,12 @@ public:
         GlobalInstance &operator=(const GlobalInstance &other) noexcept = delete;
 
         /** @brief Construct a global GPU using a backend window */
-        GlobalInstance(BackendWindow * const window,
+        GlobalInstance(
+            BackendWindow * const window,
             FrameImageModels &&frameImageModels,
             const std::initializer_list<RenderPassFactory> &renderPassFactories,
-            const Core::Version applicationVersion = Core::Version(0, 1, 0)) noexcept;
+            const Core::Version applicationVersion = Core::Version(0, 1, 0)
+        ) noexcept;
 
 
         /** @brief Access operator */

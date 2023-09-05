@@ -22,6 +22,7 @@ GPU::Instance::~Instance(void) noexcept
 }
 
 GPU::Instance::Instance(const Core::Version applicationVersion) noexcept
+    : _applicationVersion(applicationVersion)
 {
     // Query extensions & layers
     auto extensions = getExtensions(parent().backendWindow());

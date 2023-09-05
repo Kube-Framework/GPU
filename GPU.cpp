@@ -24,8 +24,12 @@ GPU::GPU::GlobalInstance::~GlobalInstance(void) noexcept
     _instance->~GPU();
 }
 
-GPU::GPU::GPU(BackendWindow * const window, FrameImageModels &&frameImageModels,
-        const std::initializer_list<RenderPassFactory> &renderPassFactories, const Core::Version applicationVersion) noexcept
+GPU::GPU::GPU(
+    BackendWindow * const window,
+    FrameImageModels &&frameImageModels,
+    const std::initializer_list<RenderPassFactory> &renderPassFactories,
+    const Core::Version applicationVersion
+) noexcept
     :   _window(window),
         _instance(applicationVersion),
         _frameImageManager(std::move(frameImageModels)),

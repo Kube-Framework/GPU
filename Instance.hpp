@@ -5,8 +5,6 @@
 
 #pragma once
 
-#include <Kube/Core/Version.hpp>
-
 #include "Handle.hpp"
 
 namespace kF::GPU
@@ -37,10 +35,17 @@ public:
     /** @brief Move assignment */
     Instance &operator=(Instance &&other) noexcept = default;
 
+
+    /** @brief Get application version */
+    [[nodiscard]] inline Core::Version applicationVersion(void) const noexcept { return _applicationVersion; }
+
+
 private:
     /** @brief Get the list of debug layers */
     [[nodiscard]] Layers getLayers(void) const noexcept;
 
     /** @brief Get the list of instance extensions */
     [[nodiscard]] Extensions getExtensions(BackendWindow *window) const noexcept;
+
+    Core::Version _applicationVersion;
 };
