@@ -21,8 +21,6 @@ GPU::PhysicalDevice::PhysicalDevice(void) noexcept
     for (auto &device : devices) {
         VkPhysicalDeviceProperties properties;
         ::vkGetPhysicalDeviceProperties(device, &properties);
-        if (device == handle()) [[unlikely]]
-            _properties = decltype(_properties)::Make(properties);
         kFInfo((device == handle() ? "\t-> " : "\t"), properties.deviceName, ": invocations ", properties.limits.maxComputeWorkGroupInvocations,
             " group count (", properties.limits.maxComputeWorkGroupCount[0], ", ", properties.limits.maxComputeWorkGroupCount[1], ", ", properties.limits.maxComputeWorkGroupCount[2],
             ") group size (", properties.limits.maxComputeWorkGroupSize[0], ", ", properties.limits.maxComputeWorkGroupSize[1], ", ", properties.limits.maxComputeWorkGroupSize[2], ')');
@@ -44,6 +42,14 @@ void GPU::PhysicalDevice::selectDevice(const Devices &devices) noexcept
     if (devices.empty())
         kFAbort("GPU::PhysicalDevice::selectDevice: No device detected !");
     handle() = devices[0];
+
+    // Hard tape the AMD issue on macos
+#if KUBE_PLATFORM_APPLE
+    VkPhysicalDeviceProperties properties;
+    ::vkGetPhysicalDeviceProperties(devices[0], &properties);
+    if (std::string_view(properties.deviceName).find("AMD") != std::string_view::npos && devices.size() > 1)
+        handle() = devices[1];
+#endif
     ::vkGetPhysicalDeviceProperties(handle(), _properties.get());
 }
 
