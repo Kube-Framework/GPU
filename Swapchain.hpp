@@ -17,7 +17,7 @@ class alignas_cacheline kF::GPU::Swapchain : public CachedHandle<SwapchainHandle
 {
 public:
     /** @brief Maximum amount of cached frames */
-    static constexpr std::uint32_t MaxCachedFrame = 3u;
+    static constexpr std::uint32_t MaxCachedFrame = 2u;
 
     /** @brief Swapchain image handles */
     using SwapchainImages = Core::Vector<ImageHandle, GPUAllocator>;
