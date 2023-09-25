@@ -51,9 +51,10 @@ GPU::PresentMode GPU::Surface::getPresentMode(void) const noexcept
             return static_cast<PresentMode>(mode);
     }
     for (const auto &mode : modes) {
-        if (static_cast<PresentMode>(mode) == PresentMode::FifoKhr)
-        kFError("[GPU] PresentMode::MailboxKhr is not available, using PresentMode::FifoKhr");
-            return static_cast<PresentMode>(mode);
+        if (static_cast<PresentMode>(mode) == PresentMode::FifoKhr) {
+            kFError("[GPU] PresentMode::MailboxKhr is not available, using PresentMode::FifoKhr");
+                return static_cast<PresentMode>(mode);
+        }
     }
     kFError("[GPU] Neither PresentMode::MailboxKhr nor PresentMode::FifoKhr are available, using PresentMode::Immediate");
     return PresentMode::ImmediateKhr;
