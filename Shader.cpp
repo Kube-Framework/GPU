@@ -20,7 +20,7 @@ GPU::Shader::~Shader(void) noexcept
 }
 
 GPU::Shader::Shader(const std::string_view &path) noexcept
-    : Shader(IO::File(path).readAll<Core::Vector<std::uint8_t, IO::IOAllocator>>(), path)
+    : Shader(IO::File(path, IO::File::Mode::ReadBinary).readAll<Core::Vector<std::uint8_t, IO::IOAllocator>>(), path)
 {
 }
 
