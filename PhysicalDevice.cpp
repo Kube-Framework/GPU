@@ -3,6 +3,10 @@
  * @ Description: PhysicalDevice
  */
 
+// #if KUBE_PLATFORM_WINDOWS
+// # include <WinUser.h>
+// #endif
+
 #include <Kube/Core/Abort.hpp>
 
 #include "GPU.hpp"
@@ -16,16 +20,24 @@ GPU::PhysicalDevice::PhysicalDevice(void) noexcept
     auto devices = getDevices();
     selectDevice(devices);
 
-#if KUBE_DEBUG_BUILD
     kFInfo("[GPU] Devices:");
     for (auto &device : devices) {
         VkPhysicalDeviceProperties properties;
         ::vkGetPhysicalDeviceProperties(device, &properties);
-        kFInfo((device == handle() ? "\t-> " : "\t"), properties.deviceName, ": invocations ", properties.limits.maxComputeWorkGroupInvocations,
-            " group count (", properties.limits.maxComputeWorkGroupCount[0], ", ", properties.limits.maxComputeWorkGroupCount[1], ", ", properties.limits.maxComputeWorkGroupCount[2],
-            ") group size (", properties.limits.maxComputeWorkGroupSize[0], ", ", properties.limits.maxComputeWorkGroupSize[1], ", ", properties.limits.maxComputeWorkGroupSize[2], ')');
+        kFInfo(
+            (device == handle() ? "\t-> " : "\t"), properties.deviceName,
+            " driver ", VK_VERSION_MAJOR(properties.driverVersion), ".", VK_VERSION_MINOR(properties.driverVersion), ".", VK_VERSION_PATCH(properties.driverVersion),
+            " vendor ", properties.vendorID
+        );
     }
-#endif
+
+// #if KUBE_PLATFORM_WINDOWS
+//     // Trigger a warning to update AMD driver
+//     if (_properties->vendorID == 4098u && (VK_VERSION_MAJOR(_properties->driverVersion) <= 2 || VK_VERSION_MINOR(_properties->driverVersion) <= 0 || VK_VERSION_PATCH(_properties->driverVersion) <= 270)) {
+//         kFInfo("[GPU] Invalid AMD driver detected");
+//         MessageBox(nullptr, "Please update your AMD driver", "Lexo may not run properly", MB_ICONWARNING);
+//     }
+// #endif
 }
 
 GPU::PhysicalDevice::Devices GPU::PhysicalDevice::getDevices(void) const noexcept
