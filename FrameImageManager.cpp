@@ -21,6 +21,13 @@ GPU::FrameImageManager::FrameImageManager(FrameImageModels &&models) noexcept
 
 void GPU::FrameImageManager::createFrameImages(void) noexcept
 {
+    // Return if there is no swapchain
+    if (!parent().swapchain()) {
+        _perFrameCache.release();
+        _customFormats.clear();
+        return;
+    }
+
     // Query swapchain images & data
     const auto extent = parent().swapchain().extent();
     const auto swapchainImages = parent().swapchain().queryImages();

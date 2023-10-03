@@ -36,6 +36,10 @@ bool GPU::CommandDispatcher::tryAcquireNextFrame(void) noexcept
         (... , data[Indexes].clear());
     };
 
+    // Return if the swapchain is destroyed
+    if (!parent().swapchain())
+        return false;
+
     // Retreive a free semaphore for the next frame
     if (_availableSemaphores.empty()) [[unlikely]]
         _availableSemaphores.push();
@@ -58,15 +62,18 @@ bool GPU::CommandDispatcher::tryAcquireNextFrame(void) noexcept
         // Cleanup dirty semaphore
         if (res == VK_SUBOPTIMAL_KHR)
             dispatch(QueueType::Graphics, {}, { semaphore }, { PipelineStageFlags::BottomOfPipe });
-        parent().dispatchViewSizeChanged();
-        res = ::vkAcquireNextImageKHR(
-            parent().logicalDevice(),
-            parent().swapchain(),
-            0, // Do not wait
-            semaphore,
-            NullHandle, // No fence
-            &retreivedFrame
-        );
+        parent().dispatchViewSizeChanged(true);
+        // Acquire next image if the swapchain is not destroyed
+        if (parent().swapchain()) {
+            res = ::vkAcquireNextImageKHR(
+                parent().logicalDevice(),
+                parent().swapchain(),
+                0, // Do not wait
+                semaphore,
+                NullHandle, // No fence
+                &retreivedFrame
+            );
+        }
     }
 
     // The acquisition failed two times, wait then return

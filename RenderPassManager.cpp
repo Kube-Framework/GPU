@@ -4,6 +4,7 @@
  */
 
 #include "RenderPassManager.hpp"
+#include "GPU.hpp"
 
 using namespace kF;
 
@@ -15,7 +16,11 @@ GPU::RenderPassManager::RenderPassManager(const std::initializer_list<RenderPass
 
 void GPU::RenderPassManager::onViewSizeChanged(void) noexcept
 {
-    _renderPasses.resize(_factories.size(), [this](const auto index) {
-        return _factories[index]();
-    });
+    if (parent().swapchain()) {
+        _renderPasses.resize(_factories.size(), [this](const auto index) {
+            return _factories[index]();
+        });
+    } else {
+        _renderPasses.clear();
+    }
 }

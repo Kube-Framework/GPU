@@ -124,7 +124,7 @@ public:
     void dispatchFrameAcquired(const FrameIndex frameIndex) noexcept;
 
     /** @brief Dispatch every known and registered 'onViewSizeChanged' callback */
-    void dispatchViewSizeChanged(void) noexcept;
+    void dispatchViewSizeChanged(const bool gpuEvent = false) noexcept;
 
 
     /** @brief Get the 'onFrameAcquired' dispatcher */

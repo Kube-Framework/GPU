@@ -8,6 +8,8 @@
 #include "PerFrameCache.hpp"
 #include "Framebuffer.hpp"
 
+#include <Kube/Core/SmallVector.hpp>
+
 namespace kF::GPU
 {
     class FramebufferManager;

@@ -54,8 +54,22 @@ void GPU::Swapchain::createSwapchain(const SwapchainHandle oldSwapchain) noexcep
         .oldSwapchain = oldSwapchain
     };
 
+    // If extent is null, we cannot create swapchain
+    if (!extent.width || !extent.height) {
+        if (handle() != NullHandle) {
+            ::vkDestroySwapchainKHR(parent().logicalDevice(), handle(), nullptr);
+            handle() = NullHandle;
+        }
+        _extent = {};
+        _surfaceFormat = {};
+        _presentMode = {};
+        return;
+    }
+
+    // Create new swapchain
     if (const auto res = ::vkCreateSwapchainKHR(parent().logicalDevice(), &swapchainInfo, nullptr, &handle()); res != VK_SUCCESS)
         kFAbort("GPU::Swapchain::createSwapchain: Couldn't create swapchain '", ErrorMessage(res), '\'');
+    // Destroy old swapchain
     if (oldSwapchain != NullHandle)
         ::vkDestroySwapchainKHR(parent().logicalDevice(), oldSwapchain, nullptr);
     _extent = extent;

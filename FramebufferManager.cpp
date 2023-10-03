@@ -3,8 +3,8 @@
  * @ Description: Framebuffer
  */
 
-#include "GPU.hpp"
 #include "FramebufferManager.hpp"
+#include "GPU.hpp"
 
 using namespace kF;
 
@@ -15,6 +15,12 @@ GPU::FramebufferManager::FramebufferManager(void) noexcept
 
 void GPU::FramebufferManager::createFramebuffers(void) noexcept
 {
+    // Return if there is no swapchain
+    if (!parent().swapchain()) {
+        _perFrameCache.release();
+        return;
+    }
+
     // Query swapchain images & data
     const auto extent = parent().swapchain().extent();
     const auto &frameImageManager = parent().frameImageManager();

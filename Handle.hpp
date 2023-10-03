@@ -47,7 +47,7 @@ public:
 
 
     /** @brief Fast handle check operator */
-    operator bool(void) const noexcept { return isNull(); }
+    operator bool(void) const noexcept { return !isNull(); }
 
     /** @brief Check if the handle is null */
     [[nodiscard]] bool isNull(void) const noexcept { return _handle == NullHandle; }
