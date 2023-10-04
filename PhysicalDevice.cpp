@@ -3,10 +3,6 @@
  * @ Description: PhysicalDevice
  */
 
-// #if KUBE_PLATFORM_WINDOWS
-// # include <WinUser.h>
-// #endif
-
 #include <Kube/Core/Abort.hpp>
 
 #include "GPU.hpp"
@@ -30,14 +26,6 @@ GPU::PhysicalDevice::PhysicalDevice(void) noexcept
             " vendor ", properties.vendorID
         );
     }
-
-// #if KUBE_PLATFORM_WINDOWS
-//     // Trigger a warning to update AMD driver
-//     if (_properties->vendorID == 4098u && (VK_VERSION_MAJOR(_properties->driverVersion) <= 2 || VK_VERSION_MINOR(_properties->driverVersion) <= 0 || VK_VERSION_PATCH(_properties->driverVersion) <= 270)) {
-//         kFInfo("[GPU] Invalid AMD driver detected");
-//         MessageBox(nullptr, "Please update your AMD driver", "Lexo may not run properly", MB_ICONWARNING);
-//     }
-// #endif
 }
 
 GPU::PhysicalDevice::Devices GPU::PhysicalDevice::getDevices(void) const noexcept
